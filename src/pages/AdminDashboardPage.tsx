@@ -5,6 +5,7 @@ import {
   Sparkles,
   Users,
   Moon,
+  Cpu,
   Plus,
   Search,
   Pencil,
@@ -29,9 +30,14 @@ import {
   getInitials,
   resolveColorHex,
 } from '../lib/colors';
-import type { DreamNightWithProfile, DreamTheme, Profile } from '../types/database';
+import type {
+  DeviceSettingsWithProfile,
+  DreamNightWithProfile,
+  DreamTheme,
+  Profile,
+} from '../types/database';
 
-type AdminSection = 'overview' | 'themes' | 'users' | 'nights';
+type AdminSection = 'overview' | 'themes' | 'users' | 'devices' | 'nights';
 
 interface ThemeFormState {
   name: string;
@@ -58,6 +64,7 @@ export const AdminDashboardPage: React.FC = () => {
   // Dados 100% reais do Supabase
   const [themes, setThemes] = useState<DreamTheme[]>([]);
   const [profiles, setProfiles] = useState<Profile[]>([]);
+  const [devices, setDevices] = useState<DeviceSettingsWithProfile[]>([]);
   const [nights, setNights] = useState<DreamNightWithProfile[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -80,13 +87,17 @@ export const AdminDashboardPage: React.FC = () => {
     else setLoading(true);
 
     try {
-      const [themesRes, profilesRes, nightsRes] = await Promise.all([
+      const [themesRes, profilesRes, nightsRes, devicesRes] = await Promise.all([
         supabase.from('dream_themes').select('*').order('created_at', { ascending: false }),
         supabase.from('profiles').select('*').order('created_at', { ascending: false }),
         supabase
           .from('dream_nights')
           .select('*, profiles(full_name, email)')
           .order('created_at', { ascending: false }),
+        supabase
+          .from('device_settings')
+          .select('*, profiles(full_name, email)')
+          .order('updated_at', { ascending: false }),
       ]);
 
       if (themesRes.error) {
@@ -101,6 +112,10 @@ export const AdminDashboardPage: React.FC = () => {
 
       if (!nightsRes.error) {
         setNights((nightsRes.data || []) as DreamNightWithProfile[]);
+      }
+
+      if (!devicesRes.error) {
+        setDevices((devicesRes.data || []) as DeviceSettingsWithProfile[]);
       }
     } finally {
       setLoading(false);
@@ -276,6 +291,7 @@ export const AdminDashboardPage: React.FC = () => {
     { key: 'overview', label: 'Visão geral', icon: <LayoutDashboard className="h-4 w-4" /> },
     { key: 'themes', label: 'Temas de Sonho', icon: <Sparkles className="h-4 w-4" />, badge: themes.length },
     { key: 'users', label: 'Usuários', icon: <Users className="h-4 w-4" />, badge: profiles.length },
+    { key: 'devices', label: 'Dispositivos', icon: <Cpu className="h-4 w-4" />, badge: devices.length },
     { key: 'nights', label: 'Noites', icon: <Moon className="h-4 w-4" />, badge: nights.length },
   ];
 
@@ -506,7 +522,9 @@ export const AdminDashboardPage: React.FC = () => {
                       ? 'Temas de Sonho'
                       : section === 'users'
                         ? 'Usuários cadastrados'
-                        : 'Noites programadas'}
+                        : section === 'devices'
+                          ? 'Dispositivos vinculados'
+                          : 'Noites programadas'}
                 </h1>
               </div>
             </div>
@@ -712,6 +730,63 @@ export const AdminDashboardPage: React.FC = () => {
                   </tbody>
                 </table>
               </div>
+            </div>
+          )}
+
+          {/* SEÇÃO DEDICADA: DISPOSITIVOS VINCULADOS */}
+          {section === 'devices' && (
+            <div className="rounded-2xl border border-slate-200/90 bg-white shadow-sm">
+              <div className="border-b border-slate-100 p-5">
+                <p className="text-[11px] font-bold tracking-[0.16em] text-violet-600 uppercase">Hardware ONIRA</p>
+                <h2 className="mt-0.5 text-lg font-bold text-slate-900">
+                  Travesseiros configurados ({devices.length})
+                </h2>
+              </div>
+              {devices.length === 0 ? (
+                <div className="px-6 py-12 text-center text-sm text-slate-500">
+                  Nenhum usuário salvou configurações do dispositivo em <strong>/dispositivo</strong> ainda.
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[680px] border-collapse text-left text-sm">
+                    <thead>
+                      <tr className="border-b border-slate-100 bg-slate-50/70 text-[11px] font-semibold tracking-wider text-slate-500 uppercase">
+                        <th className="px-5 py-3">Usuário</th>
+                        <th className="px-5 py-3">Dispositivo / Serial</th>
+                        <th className="px-5 py-3">NeoPixel / Buzzer</th>
+                        <th className="px-5 py-3">Limite NTC / Ventilação</th>
+                        <th className="px-5 py-3">LDR</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {devices.map((dev) => (
+                        <tr key={dev.user_id} className="hover:bg-slate-50/70">
+                          <td className="px-5 py-3.5">
+                            <p className="font-semibold text-slate-900">
+                              {dev.profiles?.full_name || 'Usuário'}
+                            </p>
+                            <p className="text-xs text-slate-500">{dev.profiles?.email || '—'}</p>
+                          </td>
+                          <td className="px-5 py-3.5">
+                            <p className="font-semibold text-slate-800">{dev.device_name}</p>
+                            <p className="font-mono text-xs text-violet-600">{dev.device_code}</p>
+                          </td>
+                          <td className="px-5 py-3.5 text-slate-700">
+                            LED {dev.neopixel_brightness}% · Buzzer {dev.buzzer_volume}%
+                          </td>
+                          <td className="px-5 py-3.5 text-slate-700">
+                            {Number(dev.max_temp_celsius).toFixed(1)} °C ·{' '}
+                            <span className={dev.auto_ventilation ? 'font-semibold text-emerald-600' : 'text-slate-400'}>
+                              {dev.auto_ventilation ? 'Ventilação ON' : 'OFF'}
+                            </span>
+                          </td>
+                          <td className="px-5 py-3.5 text-xs font-medium text-slate-700">{dev.ldr_sensitivity}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           )}
 
