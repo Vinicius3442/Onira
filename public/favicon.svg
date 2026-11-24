@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="onira-ring" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#C084FC" />
+      <stop offset="50%" stop-color="#8B5CF6" />
+      <stop offset="100%" stop-color="#38BDF8" />
+    </linearGradient>
+    <radialGradient id="onira-bg" cx="32" cy="32" r="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1E1842" />
+      <stop offset="100%" stop-color="#09071A" />
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="url(#onira-bg)" />
+  <circle cx="32" cy="32" r="21" stroke="url(#onira-ring)" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="104 28" />
+  <path d="M35.5 18.5C28.8 19.6 24 25.5 24.4 32.3C24.8 39.7 31 45.4 38.4 45C42.1 44.8 45.4 43.1 47.6 40.4C45.7 41 43.7 41.2 41.6 40.9C34.9 39.9 30.3 33.7 31.3 27C31.8 23.6 33.4 20.7 35.5 18.5Z" fill="#F8FAFC" />
+  <path d="M43 17L44.6 21.4L49 23L44.6 24.6L43 29L41.4 24.6L37 23L41.4 21.4L43 17Z" fill="#7DD3FC" />
+</svg>
