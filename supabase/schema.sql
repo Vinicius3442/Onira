@@ -1,14 +1,14 @@
 -- ============================================================================
 -- ONIRA — Travesseiro dos Sonhos (Dormire Tecnologia do Sono)
--- Schema completo do banco de dados Supabase (PostgreSQL + Auth + RLS)
+-- Schema completo e idempotente do banco de dados Supabase (PostgreSQL + RLS)
 -- ============================================================================
 -- Como executar:
 -- 1. Acesse o painel do Supabase -> SQL Editor -> New Query
--- 2. Cole todo este arquivo e clique em "Run"
--- 3. Em Authentication -> Providers -> Email, desative "Confirm email"
---    (para permitir login imediato de contas de teste como aline.moraes@teste.com)
--- 4. Crie sua conta de administrador pela tela /cadastro (ou no painel Auth)
---    e execute: SELECT public.promote_to_admin('admin@onira.com.br');
+-- 2. Cole todo este arquivo e clique em "Run" (pode ser reexecutado com segurança)
+-- 3. Em Authentication -> Providers -> Email, confirme que "Confirm email"
+--    está desativado para login imediato em testes (CT-01/CT-02)
+-- 4. Cadastre sua conta admin em /cadastro (ex.: admin@onira.com.br) e execute:
+--      SELECT public.promote_to_admin('admin@onira.com.br');
 -- ============================================================================
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
@@ -65,21 +65,46 @@ CREATE TABLE IF NOT EXISTS public.dream_nights (
     CHECK (wake_up_time ~ '^([01][0-9]|2[0-3]):[0-5][0-9]$'),
   status TEXT NOT NULL DEFAULT 'Programada'
     CHECK (status IN ('Programada', 'Concluída', 'Cancelada')),
+  sleep_quality SMALLINT CHECK (sleep_quality IS NULL OR (sleep_quality BETWEEN 1 AND 5)),
+  morning_notes TEXT,
   scheduled_for DATE NOT NULL DEFAULT CURRENT_DATE,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-COMMENT ON TABLE public.dream_nights IS 'Noites programadas pelos usuários na página Roteiro do Sonho (RF05 / CT-05).';
+-- Migração segura caso dream_nights já exista sem as colunas de avaliação matinal
+ALTER TABLE public.dream_nights
+  ADD COLUMN IF NOT EXISTS sleep_quality SMALLINT CHECK (sleep_quality IS NULL OR (sleep_quality BETWEEN 1 AND 5));
+ALTER TABLE public.dream_nights
+  ADD COLUMN IF NOT EXISTS morning_notes TEXT;
+
+COMMENT ON TABLE public.dream_nights IS 'Noites programadas pelos usuários na página Roteiro do Sonho (RF05 / CT-05) com histórico e avaliação matinal.';
+
+-- ----------------------------------------------------------------------------
+-- 4. TABELA DE CONFIGURAÇÕES DO TRAVESSEIRO ONIRA (IoT / Preferências Reais)
+-- ----------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS public.device_settings (
+  user_id UUID PRIMARY KEY REFERENCES public.profiles(id) ON DELETE CASCADE,
+  device_code TEXT NOT NULL DEFAULT 'ONR-2026-001' CHECK (char_length(trim(device_code)) >= 3),
+  device_name TEXT NOT NULL DEFAULT 'Travesseiro ONIRA Principal' CHECK (char_length(trim(device_name)) >= 2),
+  neopixel_brightness SMALLINT NOT NULL DEFAULT 65 CHECK (neopixel_brightness BETWEEN 10 AND 100),
+  buzzer_volume SMALLINT NOT NULL DEFAULT 50 CHECK (buzzer_volume BETWEEN 0 AND 100),
+  max_temp_celsius NUMERIC(4,1) NOT NULL DEFAULT 27.5 CHECK (max_temp_celsius BETWEEN 18.0 AND 36.0),
+  auto_ventilation BOOLEAN NOT NULL DEFAULT TRUE,
+  ldr_sensitivity TEXT NOT NULL DEFAULT 'Média' CHECK (ldr_sensitivity IN ('Baixa', 'Média', 'Alta')),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+COMMENT ON TABLE public.device_settings IS 'Preferências reais do Travesseiro Inteligente ONIRA (NeoPixel, Buzzer, NTC, ventilação e LDR).';
 
 CREATE INDEX IF NOT EXISTS idx_dream_nights_user_id ON public.dream_nights(user_id, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_dream_nights_theme_id ON public.dream_nights(theme_id);
 CREATE INDEX IF NOT EXISTS idx_dream_themes_name ON public.dream_themes(name);
 
 -- ----------------------------------------------------------------------------
--- 4. FUNÇÕES AUXILIARES & TRIGGERS
+-- 5. FUNÇÕES AUXILIARES & TRIGGERS
 -- ----------------------------------------------------------------------------
 
--- Atualiza automaticamente updated_at
 CREATE OR REPLACE FUNCTION public.set_updated_at()
 RETURNS TRIGGER
 LANGUAGE plpgsql
@@ -99,6 +124,12 @@ CREATE TRIGGER trg_profiles_updated_at
 DROP TRIGGER IF EXISTS trg_dream_themes_updated_at ON public.dream_themes;
 CREATE TRIGGER trg_dream_themes_updated_at
   BEFORE UPDATE ON public.dream_themes
+  FOR EACH ROW
+  EXECUTE FUNCTION public.set_updated_at();
+
+DROP TRIGGER IF EXISTS trg_device_settings_updated_at ON public.device_settings;
+CREATE TRIGGER trg_device_settings_updated_at
+  BEFORE UPDATE ON public.device_settings
   FOR EACH ROW
   EXECUTE FUNCTION public.set_updated_at();
 
@@ -224,11 +255,12 @@ END;
 $$;
 
 -- ----------------------------------------------------------------------------
--- 5. ROW LEVEL SECURITY (RLS) — SEGURANÇA NO BANCO DE DADOS
+-- 6. ROW LEVEL SECURITY (RLS) — SEGURANÇA NO BANCO DE DADOS
 -- ----------------------------------------------------------------------------
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.dream_themes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.dream_nights ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.device_settings ENABLE ROW LEVEL SECURITY;
 
 -- Policies: profiles
 DROP POLICY IF EXISTS "profiles_select_own_or_admin" ON public.profiles;
@@ -302,8 +334,28 @@ CREATE POLICY "dream_nights_delete_own_or_admin"
   TO authenticated
   USING (auth.uid() = user_id OR public.is_admin());
 
+-- Policies: device_settings
+DROP POLICY IF EXISTS "device_settings_select_own_or_admin" ON public.device_settings;
+CREATE POLICY "device_settings_select_own_or_admin"
+  ON public.device_settings FOR SELECT
+  TO authenticated
+  USING (auth.uid() = user_id OR public.is_admin());
+
+DROP POLICY IF EXISTS "device_settings_insert_own" ON public.device_settings;
+CREATE POLICY "device_settings_insert_own"
+  ON public.device_settings FOR INSERT
+  TO authenticated
+  WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "device_settings_update_own" ON public.device_settings;
+CREATE POLICY "device_settings_update_own"
+  ON public.device_settings FOR UPDATE
+  TO authenticated
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);
+
 -- ----------------------------------------------------------------------------
--- 6. TEMAS INICIAIS (inclui "Praia ao entardecer" usado no CT-05)
+-- 7. TEMAS INICIAIS (inclui "Praia ao entardecer" usado no CT-05)
 -- ----------------------------------------------------------------------------
 INSERT INTO public.dream_themes (name, description, light_color, light_hex)
 SELECT v.name, v.description, v.light_color, v.light_hex

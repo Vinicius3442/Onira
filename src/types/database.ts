@@ -33,11 +33,35 @@ export interface DreamNight {
   duration_hours: number;
   wake_up_time: string;
   status: NightStatus;
+  sleep_quality: number | null;
+  morning_notes: string | null;
   scheduled_for: string;
   created_at: string;
 }
 
 export interface DreamNightWithProfile extends DreamNight {
+  profiles?: {
+    full_name: string;
+    email: string;
+  } | null;
+}
+
+export type LdrSensitivity = 'Baixa' | 'Média' | 'Alta';
+
+export interface DeviceSettings {
+  user_id: string;
+  device_code: string;
+  device_name: string;
+  neopixel_brightness: number;
+  buzzer_volume: number;
+  max_temp_celsius: number;
+  auto_ventilation: boolean;
+  ldr_sensitivity: LdrSensitivity;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface DeviceSettingsWithProfile extends DeviceSettings {
   profiles?: {
     full_name: string;
     email: string;
