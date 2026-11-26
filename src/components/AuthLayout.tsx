@@ -1,5 +1,6 @@
 import React from 'react';
-import { Moon, Sparkles, ShieldCheck } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Sparkles, ShieldCheck } from 'lucide-react';
 import { OniraLogo } from './OniraLogo';
 import { WaveBackdrop } from './WaveBackdrop';
 
@@ -13,8 +14,8 @@ interface AuthLayoutProps {
 }
 
 /**
- * Layout responsivo de Autenticação (Mobile 390px fiel ao Figma `Telas mobile` +
- * Split showcase elegante em Desktop exibindo o Travesseiro ONIRA).
+ * Layout responsivo de Autenticação (Mobile 390px + Split showcase em Desktop).
+ * Sem ícones decorativos soltos no topo que pareçam botões.
  */
 export const AuthLayout: React.FC<AuthLayoutProps> = ({
   eyebrow,
@@ -28,13 +29,15 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
     <div className="relative flex min-h-screen w-full items-center justify-center px-4 py-8 sm:px-6 lg:px-10">
       <WaveBackdrop />
 
-      <div className="grid w-full max-w-5xl grid-cols-1 items-stretch gap-8 lg:grid-cols-12">
-        {/* Painel visual lateral (visível no desktop, mantém mobile 100% fiel ao protótipo) */}
-        <div className="relative hidden flex-col justify-between overflow-hidden rounded-[2rem] border border-violet-500/20 bg-[#110E25]/90 p-9 shadow-2xl lg:col-span-6 lg:flex">
-          <div className="absolute inset-0 bg-gradient-to-br from-violet-600/15 via-transparent to-sky-500/10" />
+      <div className="animate-page-enter grid w-full max-w-5xl grid-cols-1 items-stretch gap-8 lg:grid-cols-12">
+        {/* Painel visual lateral (visível no desktop) */}
+        <div className="onira-card relative hidden flex-col justify-between overflow-hidden rounded-[2rem] p-9 lg:col-span-6 lg:flex">
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-violet-600/15 via-transparent to-sky-500/10" />
 
           <div className="relative z-10">
-            <OniraLogo variant="full" showTagline />
+            <Link to="/" className="inline-block transition-opacity hover:opacity-90">
+              <OniraLogo variant="full" showTagline />
+            </Link>
             <p className="mt-6 max-w-md text-sm leading-relaxed text-slate-300">
               Conduza seus sonhos com iluminação inteligente NeoPixel e acorde de forma suave todos os dias com o{' '}
               <span className="font-semibold text-white">Travesseiro Inteligente ONIRA</span> da Dormire Tecnologia do
@@ -42,11 +45,11 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
             </p>
           </div>
 
-          <div className="relative z-10 my-6 overflow-hidden rounded-2xl border border-white/10 bg-[#0A0818] shadow-xl">
+          <div className="group relative z-10 my-6 overflow-hidden rounded-2xl border border-white/10 bg-[#0A0818] shadow-xl">
             <img
               src="/images/onira-pillow.png"
               alt="Travesseiro inteligente ONIRA em quarto aconchegante"
-              className="h-60 w-full object-cover object-center transition-transform duration-700 hover:scale-105"
+              className="h-60 w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#080715] via-[#080715]/75 to-transparent p-4">
               <div className="flex items-center gap-2 text-xs font-medium text-violet-200">
@@ -57,26 +60,25 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
           </div>
 
           <div className="relative z-10 grid grid-cols-2 gap-3 text-xs">
-            <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3.5">
+            <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-400/35 hover:bg-white/[0.06]">
               <p className="font-semibold text-white">Roteiro do Sonho</p>
               <p className="mt-1 text-slate-400">Escolha tema, duração e despertar sob medida.</p>
             </div>
-            <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3.5">
+            <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-400/35 hover:bg-white/[0.06]">
               <p className="font-semibold text-white">Banco Real & Seguro</p>
               <p className="mt-1 text-slate-400">Autenticação Supabase com senhas protegidas por hash.</p>
             </div>
           </div>
         </div>
 
-        {/* Cartão principal de autenticação (alinhado ao protótipo mobile 390x844) */}
-        <div className="mx-auto flex w-full max-w-[430px] flex-col justify-between rounded-[2rem] onira-card p-6 sm:p-8 lg:col-span-6 lg:max-w-none">
+        {/* Cartão principal de autenticação */}
+        <div className="onira-card mx-auto flex w-full max-w-[430px] flex-col justify-between rounded-[2rem] p-6 sm:p-8 lg:col-span-6 lg:max-w-none">
           <div>
-            {/* Top header do card */}
+            {/* Top header limpo apenas com a marca clicável para início */}
             <div className="flex items-center justify-between">
-              <OniraLogo variant="compact" />
-              <div className="flex h-10 w-10 items-center justify-center rounded-full border border-violet-400/25 bg-violet-500/10 text-violet-300 shadow-[0_0_24px_rgba(139,92,246,0.25)]">
-                <Moon className="h-4 w-4" />
-              </div>
+              <Link to="/" className="inline-block transition-opacity hover:opacity-90" title="Voltar para o início">
+                <OniraLogo variant="compact" />
+              </Link>
             </div>
 
             {/* Eyebrow & Título */}

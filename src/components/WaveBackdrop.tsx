@@ -1,19 +1,19 @@
 import React from 'react';
 
 /**
- * Fundo sutil com ondas noturnas inspirado na identidade visual ONIRA (Onira- Logo.png).
+ * Fundo com ondas noturnas e auras atmosféricas flutuantes da identidade visual ONIRA.
  */
 export const WaveBackdrop: React.FC = () => {
   return (
     <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#080715]" aria-hidden="true">
-      {/* Glows atmosféricos */}
-      <div className="absolute -top-36 left-1/2 h-[420px] w-[620px] -translate-x-1/2 rounded-full bg-violet-600/20 blur-[130px]" />
-      <div className="absolute right-[-120px] bottom-[-140px] h-[380px] w-[380px] rounded-full bg-sky-500/12 blur-[120px]" />
-      <div className="absolute bottom-1/3 left-[-140px] h-[320px] w-[320px] rounded-full bg-indigo-600/15 blur-[120px]" />
+      {/* Glows atmosféricos com movimento suave */}
+      <div className="animate-float-slow absolute -top-36 left-1/2 h-[440px] w-[640px] -translate-x-1/2 rounded-full bg-violet-600/22 blur-[130px]" />
+      <div className="animate-float-reverse absolute right-[-120px] bottom-[-140px] h-[400px] w-[400px] rounded-full bg-sky-500/14 blur-[120px]" />
+      <div className="animate-float-slow absolute bottom-1/3 left-[-140px] h-[340px] w-[340px] rounded-full bg-indigo-600/16 blur-[120px]" />
 
-      {/* Linhas onduladas sutis */}
+      {/* Linhas onduladas com flutuação sutil */}
       <svg
-        className="absolute inset-0 h-full w-full opacity-[0.13]"
+        className="animate-wave-drift absolute inset-0 h-[106%] w-full opacity-[0.14]"
         viewBox="0 0 1440 900"
         preserveAspectRatio="none"
         fill="none"

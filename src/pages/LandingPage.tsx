@@ -15,6 +15,7 @@ import {
 import { OniraLogo } from '../components/OniraLogo';
 import { WaveBackdrop } from '../components/WaveBackdrop';
 import { NeoPixelRing } from '../components/NeoPixelRing';
+import { RevealOnScroll, ScrollProgressBar } from '../components/RevealOnScroll';
 import { useAuth } from '../contexts/AuthContext';
 
 const PREVIEW_THEMES = [
@@ -31,6 +32,7 @@ export const LandingPage: React.FC = () => {
 
   return (
     <div className="relative min-h-screen text-slate-100">
+      <ScrollProgressBar />
       <WaveBackdrop />
 
       {/* Navbar */}
@@ -81,7 +83,7 @@ export const LandingPage: React.FC = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="mx-auto max-w-6xl px-4 pt-12 pb-16 sm:px-6 sm:pt-20">
+      <section className="animate-page-enter mx-auto max-w-6xl px-4 pt-12 pb-16 sm:px-6 sm:pt-20">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12">
           <div className="lg:col-span-6">
             <span className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-violet-500/10 px-3.5 py-1.5 text-xs font-semibold text-violet-200">
@@ -135,12 +137,12 @@ export const LandingPage: React.FC = () => {
           </div>
 
           <div className="lg:col-span-6">
-            <div className="onira-card relative overflow-hidden rounded-[2rem] p-4 sm:p-5">
+            <div className="onira-card onira-card-lift group relative overflow-hidden rounded-[2rem] p-4 sm:p-5">
               <div className="overflow-hidden rounded-2xl border border-white/10">
                 <img
                   src="/images/onira-pillow.png"
                   alt="Travesseiro inteligente ONIRA em quarto aconchegante"
-                  className="h-64 w-full object-cover sm:h-80"
+                  className="h-64 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 sm:h-80"
                 />
               </div>
 
@@ -183,12 +185,12 @@ export const LandingPage: React.FC = () => {
 
       {/* Como Funciona */}
       <section id="como-funciona" className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-        <div className="max-w-2xl">
+        <RevealOnScroll className="max-w-2xl">
           <p className="text-xs font-bold tracking-[0.2em] text-violet-400 uppercase">Experiência completa</p>
           <h2 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
             Do planejamento da noite ao despertar restaurador
           </h2>
-        </div>
+        </RevealOnScroll>
 
         <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
           {[
@@ -210,101 +212,108 @@ export const LandingPage: React.FC = () => {
               desc: 'O buzzer conduz um despertar gradual no horário programado e você registra sua evolução no histórico pessoal.',
               icon: <CheckCircle2 className="h-5 w-5 text-emerald-300" />,
             },
-          ].map((card) => (
-            <div key={card.step} className="onira-card rounded-3xl p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
-                  {card.icon}
+          ].map((card, idx) => (
+            <RevealOnScroll key={card.step} delay={idx * 100}>
+              <div className="onira-card onira-card-lift h-full rounded-3xl p-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+                    {card.icon}
+                  </div>
+                  <span className="font-display text-xs font-bold tracking-widest text-slate-500">
+                    ETAPA {card.step}
+                  </span>
                 </div>
-                <span className="font-display text-xs font-bold tracking-widest text-slate-500">
-                  ETAPA {card.step}
-                </span>
+                <h3 className="mt-5 text-lg font-bold text-white">{card.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-400">{card.desc}</p>
               </div>
-              <h3 className="mt-5 text-lg font-bold text-white">{card.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-400">{card.desc}</p>
-            </div>
+            </RevealOnScroll>
           ))}
         </div>
       </section>
 
       {/* Arquitetura IoT (do catálogo Dormire) */}
       <section id="hardware" className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-        <div className="onira-card rounded-[2rem] p-6 sm:p-10">
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-              <p className="text-xs font-bold tracking-[0.2em] text-sky-400 uppercase">Produto físico · IoT</p>
-              <h2 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
-                Componentes do Travesseiro Inteligente
-              </h2>
-            </div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs text-slate-300">
-              <Cpu className="h-3.5 w-3.5 text-violet-400" />
-              ESP32 + Sensores integrados
-            </span>
-          </div>
-
-          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {[
-              {
-                icon: <Moon className="h-5 w-5 text-violet-300" />,
-                title: 'Fase do Sono',
-                detail: 'Potenciômetro (0 acordado a 100 sono profundo)',
-              },
-              {
-                icon: <Thermometer className="h-5 w-5 text-rose-300" />,
-                title: 'Sensor NTC',
-                detail: 'Temperatura do travesseiro em °C com alerta térmico',
-              },
-              {
-                icon: <SunMedium className="h-5 w-5 text-amber-300" />,
-                title: 'Fotorresistor LDR',
-                detail: 'Luminosidade do quarto de 0 a 100%',
-              },
-              {
-                icon: <Sparkles className="h-5 w-5 text-sky-300" />,
-                title: 'Anel NeoPixel',
-                detail: 'Luz de indução suave na cor do tema escolhido',
-              },
-              {
-                icon: <Volume2 className="h-5 w-5 text-emerald-300" />,
-                title: 'Buzzer + Ventilação',
-                detail: 'Despertar suave e resfriamento automático',
-              },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] p-4"
-              >
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5">
-                  {item.icon}
-                </div>
-                <h3 className="mt-3 text-sm font-bold text-white">{item.title}</h3>
-                <p className="mt-1 text-xs leading-relaxed text-slate-400">{item.detail}</p>
+        <RevealOnScroll>
+          <div className="onira-card rounded-[2rem] p-6 sm:p-10">
+            <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+              <div>
+                <p className="text-xs font-bold tracking-[0.2em] text-sky-400 uppercase">Produto físico · IoT</p>
+                <h2 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
+                  Componentes do Travesseiro Inteligente
+                </h2>
               </div>
-            ))}
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs text-slate-300">
+                <Cpu className="h-3.5 w-3.5 text-violet-400" />
+                ESP32 + Sensores integrados
+              </span>
+            </div>
+
+            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              {[
+                {
+                  icon: <Moon className="h-5 w-5 text-violet-300" />,
+                  title: 'Fase do Sono',
+                  detail: 'Potenciômetro (0 acordado a 100 sono profundo)',
+                },
+                {
+                  icon: <Thermometer className="h-5 w-5 text-rose-300" />,
+                  title: 'Sensor NTC',
+                  detail: 'Temperatura do travesseiro em °C com alerta térmico',
+                },
+                {
+                  icon: <SunMedium className="h-5 w-5 text-amber-300" />,
+                  title: 'Fotorresistor LDR',
+                  detail: 'Luminosidade do quarto de 0 a 100%',
+                },
+                {
+                  icon: <Sparkles className="h-5 w-5 text-sky-300" />,
+                  title: 'Anel NeoPixel',
+                  detail: 'Luz de indução suave na cor do tema escolhido',
+                },
+                {
+                  icon: <Volume2 className="h-5 w-5 text-emerald-300" />,
+                  title: 'Buzzer + Ventilação',
+                  detail: 'Despertar suave e resfriamento automático',
+                },
+              ].map((item, idx) => (
+                <RevealOnScroll key={item.title} delay={idx * 70}>
+                  <div className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition-all duration-300 hover:-translate-y-1 hover:border-violet-400/35 hover:bg-white/[0.06]">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5">
+                      {item.icon}
+                    </div>
+                    <h3 className="mt-3 text-sm font-bold text-white">{item.title}</h3>
+                    <p className="mt-1 text-xs leading-relaxed text-slate-400">{item.detail}</p>
+                  </div>
+                </RevealOnScroll>
+              ))}
+            </div>
           </div>
-        </div>
+        </RevealOnScroll>
       </section>
 
       {/* Plataforma & Segurança */}
       <section id="plataforma" className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="onira-card rounded-3xl p-7">
-            <ShieldCheck className="h-7 w-7 text-violet-400" />
-            <h3 className="mt-4 text-xl font-bold text-white">Autenticação e Controle de Acesso Real</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-400">
-              Senhas armazenadas com hash seguro pelo Supabase Auth, recuperação por e-mail com validação real de conta
-              e área administrativa protegida por Row Level Security (RLS) no PostgreSQL.
-            </p>
-          </div>
-          <div className="onira-card rounded-3xl p-7">
-            <Wind className="h-7 w-7 text-sky-400" />
-            <h3 className="mt-4 text-xl font-bold text-white">Para adultos, hotéis e clínicas do sono</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-400">
-              Experiência responsiva pensada para uso noturno no celular e gestão completa do catálogo de temas pelo
-              painel administrativo em computador.
-            </p>
-          </div>
+          <RevealOnScroll delay={0}>
+            <div className="onira-card onira-card-lift h-full rounded-3xl p-7">
+              <ShieldCheck className="h-7 w-7 text-violet-400" />
+              <h3 className="mt-4 text-xl font-bold text-white">Autenticação e Controle de Acesso Real</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-400">
+                Senhas armazenadas com hash seguro pelo Supabase Auth, recuperação por e-mail com validação real de conta
+                e área administrativa protegida por Row Level Security (RLS) no PostgreSQL.
+              </p>
+            </div>
+          </RevealOnScroll>
+          <RevealOnScroll delay={110}>
+            <div className="onira-card onira-card-lift h-full rounded-3xl p-7">
+              <Wind className="h-7 w-7 text-sky-400" />
+              <h3 className="mt-4 text-xl font-bold text-white">Para adultos, hotéis e clínicas do sono</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-400">
+                Experiência responsiva pensada para uso noturno no celular e gestão completa do catálogo de temas pelo
+                painel administrativo em computador.
+              </p>
+            </div>
+          </RevealOnScroll>
         </div>
       </section>
 

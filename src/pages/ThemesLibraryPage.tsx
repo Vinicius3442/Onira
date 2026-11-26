@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Search, Sparkles, ArrowRight, RefreshCw, Loader2, AlertCircle } from 'lucide-react';
 import { AppShell } from '../components/AppShell';
 import { NeoPixelRing } from '../components/NeoPixelRing';
+import { RevealOnScroll } from '../components/RevealOnScroll';
 import { supabase } from '../lib/supabase';
 import { resolveColorHex } from '../lib/colors';
 import type { DreamTheme } from '../types/database';
@@ -152,12 +153,12 @@ export const ThemesLibraryPage: React.FC = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredThemes.map((theme) => {
+          {filteredThemes.map((theme, idx) => {
             const hex = theme.light_hex || resolveColorHex(theme.light_color);
             return (
+              <RevealOnScroll key={theme.id} delay={idx * 70}>
               <article
-                key={theme.id}
-                className="onira-card flex flex-col justify-between rounded-3xl p-6 transition-transform duration-200 hover:-translate-y-0.5"
+                className="onira-card onira-card-lift flex h-full flex-col justify-between rounded-3xl p-6"
               >
                 <div>
                   <div className="flex justify-center py-3">
@@ -185,6 +186,7 @@ export const ThemesLibraryPage: React.FC = () => {
                   <ArrowRight className="h-4 w-4" />
                 </button>
               </article>
+              </RevealOnScroll>
             );
           })}
         </div>

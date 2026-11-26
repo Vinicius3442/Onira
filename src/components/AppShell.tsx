@@ -13,6 +13,7 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 import { OniraLogo } from './OniraLogo';
 import { WaveBackdrop } from './WaveBackdrop';
+import { ScrollProgressBar } from './RevealOnScroll';
 import { getGreetingByHour, getInitials } from '../lib/colors';
 
 interface AppShellProps {
@@ -53,6 +54,7 @@ export const AppShell: React.FC<AppShellProps> = ({ title, subtitle, headerActio
 
   return (
     <div className="relative min-h-screen pb-24 text-slate-100 md:pb-12">
+      <ScrollProgressBar />
       <WaveBackdrop />
 
       {/* Top Navigation */}
@@ -129,7 +131,7 @@ export const AppShell: React.FC<AppShellProps> = ({ title, subtitle, headerActio
       </header>
 
       {/* Page Header & Content */}
-      <main className="mx-auto max-w-6xl px-4 pt-6 sm:px-6 sm:pt-8">
+      <main className="animate-page-enter mx-auto max-w-6xl px-4 pt-6 sm:px-6 sm:pt-8">
         <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <p className="text-sm text-violet-300">

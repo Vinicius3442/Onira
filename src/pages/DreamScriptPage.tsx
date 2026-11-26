@@ -18,6 +18,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import { AppShell } from '../components/AppShell';
 import { NeoPixelRing } from '../components/NeoPixelRing';
+import { RevealOnScroll } from '../components/RevealOnScroll';
 import { calculateBedtime, formatDuration, resolveColorHex } from '../lib/colors';
 import type { DreamNight, DreamTheme, NightStatus } from '../types/database';
 
@@ -260,12 +261,12 @@ export const DreamScriptPage: React.FC = () => {
       <div className="space-y-6">
         {/* Métricas reais do usuário */}
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
-          <div className="onira-card rounded-2xl p-4">
+          <div className="onira-card onira-card-lift rounded-2xl p-4">
             <p className="text-[11px] font-semibold tracking-wider text-violet-300 uppercase">Programadas</p>
             <p className="mt-2 text-2xl font-bold text-white">{stats.scheduledCount}</p>
             <p className="mt-0.5 text-xs text-slate-400">noites ativas</p>
           </div>
-          <div className="onira-card rounded-2xl p-4">
+          <div className="onira-card onira-card-lift rounded-2xl p-4">
             <p className="text-[11px] font-semibold tracking-wider text-sky-300 uppercase">Próximo despertar</p>
             <p className="mt-2 text-2xl font-bold text-white">
               {stats.nextNight ? stats.nextNight.wake_up_time : '--:--'}
@@ -274,7 +275,7 @@ export const DreamScriptPage: React.FC = () => {
               {stats.nextNight ? stats.nextNight.theme_name : 'Nenhuma agendada'}
             </p>
           </div>
-          <div className="onira-card rounded-2xl p-4">
+          <div className="onira-card onira-card-lift rounded-2xl p-4">
             <p className="text-[11px] font-semibold tracking-wider text-emerald-300 uppercase">Média planejada</p>
             <p className="mt-2 text-2xl font-bold text-white">
               {stats.avgDuration > 0 ? formatDuration(stats.avgDuration) : '--'}
@@ -283,7 +284,7 @@ export const DreamScriptPage: React.FC = () => {
               {stats.total} {stats.total === 1 ? 'registro real' : 'registros reais'}
             </p>
           </div>
-          <Link to="/temas" className="onira-card group rounded-2xl p-4 transition-colors hover:border-violet-400/40">
+          <Link to="/temas" className="onira-card onira-card-lift group rounded-2xl p-4 transition-colors hover:border-violet-400/40">
             <p className="text-[11px] font-semibold tracking-wider text-purple-300 uppercase">Catálogo ativo</p>
             <p className="mt-2 text-2xl font-bold text-white">{themes.length}</p>
             <p className="mt-0.5 inline-flex items-center gap-1 text-xs text-violet-300 group-hover:text-violet-200">
@@ -376,9 +377,9 @@ export const DreamScriptPage: React.FC = () => {
                         key={theme.id}
                         type="button"
                         onClick={() => setSelectedThemeId(theme.id)}
-                        className={`group flex cursor-pointer flex-col justify-between rounded-2xl border p-4 text-left transition-all ${
+                        className={`group flex cursor-pointer flex-col justify-between rounded-2xl border p-4 text-left transition-all duration-300 hover:-translate-y-1 ${
                           isSelected
-                            ? 'border-violet-400 bg-violet-500/15 shadow-[0_0_24px_rgba(139,92,246,0.22)]'
+                            ? 'border-violet-400 bg-violet-500/15 shadow-[0_0_24px_rgba(139,92,246,0.28)]'
                             : 'border-white/10 bg-white/[0.025] hover:border-violet-400/40 hover:bg-white/[0.05]'
                         }`}
                       >
@@ -535,6 +536,7 @@ export const DreamScriptPage: React.FC = () => {
         </div>
 
         {/* Lista imediata de Noites Programadas (CT-05 passo 4) */}
+        <RevealOnScroll>
         <section className="onira-card rounded-3xl p-5 sm:p-7">
           <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
             <div>
@@ -657,6 +659,7 @@ export const DreamScriptPage: React.FC = () => {
             </div>
           )}
         </section>
+        </RevealOnScroll>
       </div>
     </AppShell>
   );

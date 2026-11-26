@@ -27,40 +27,86 @@
 }
 
 .onira-gradient-btn {
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(135deg, #7C3AED 0%, #9333EA 52%, #A855F7 100%);
   box-shadow: 0 10px 30px -8px rgba(139, 92, 246, 0.55);
-  transition: transform 0.16s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, filter 0.22s ease;
+}
+
+.onira-gradient-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, 0.22) 50%, transparent 75%);
+  transform: translateX(-120%);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.onira-gradient-btn:hover:not(:disabled)::after {
+  transform: translateX(120%);
 }
 
 .onira-gradient-btn:hover:not(:disabled) {
   filter: brightness(1.08);
-  box-shadow: 0 14px 34px -6px rgba(168, 85, 247, 0.65);
-  transform: translateY(-1px);
+  box-shadow: 0 16px 36px -6px rgba(168, 85, 247, 0.7);
+  transform: translateY(-2px);
 }
 
 .onira-gradient-btn:active:not(:disabled) {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.99);
 }
 
 .onira-card {
   background: linear-gradient(180deg, rgba(22, 19, 46, 0.92) 0%, rgba(15, 13, 33, 0.96) 100%);
   border: 1px solid rgba(139, 92, 246, 0.18);
   box-shadow: 0 20px 50px -24px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition:
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.28s ease,
+    box-shadow 0.32s ease;
+}
+
+.onira-card:hover {
+  border-color: rgba(167, 139, 250, 0.34);
+  box-shadow:
+    0 24px 54px -22px rgba(0, 0, 0, 0.9),
+    0 0 28px -10px rgba(139, 92, 246, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.onira-card-lift:hover {
+  transform: translateY(-4px);
+}
+
+.admin-card {
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s ease,
+    border-color 0.25s ease;
+}
+
+.admin-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(139, 92, 246, 0.35);
+  box-shadow: 0 16px 34px -18px rgba(109, 40, 217, 0.28);
 }
 
 .onira-input {
   background: rgba(14, 12, 31, 0.85);
   border: 1px solid rgba(148, 163, 184, 0.2);
-  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
 }
 
 .onira-input:focus {
   outline: none;
   border-color: #8B5CF6;
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.22);
-  background: rgba(19, 16, 42, 0.95);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.24);
+  background: rgba(19, 16, 42, 0.96);
 }
 
+/* Keyframes de animações suaves */
 @keyframes gentlePulse {
   0%, 100% {
     opacity: 0.72;
@@ -68,10 +114,118 @@
   }
   50% {
     opacity: 1;
-    transform: scale(1.04);
+    transform: scale(1.06);
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(18px, -22px, 0) scale(1.06);
+  }
+}
+
+@keyframes floatReverse {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-22px, 16px, 0) scale(1.08);
+  }
+}
+
+@keyframes waveDrift {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(14px);
+  }
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
 .animate-neopixel {
   animation: gentlePulse 3.6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: floatSlow 13s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: floatReverse 16s ease-in-out infinite;
+}
+
+.animate-wave-drift {
+  animation: waveDrift 14s ease-in-out infinite;
+}
+
+.animate-page-enter {
+  animation: pageEnter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-modal-pop {
+  animation: modalPop 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Scroll Reveal */
+.reveal-hidden {
+  opacity: 0;
+  transform: translateY(26px) scale(0.985);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.reveal-transition {
+  transition:
+    opacity 0.68s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.68s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-neopixel,
+  .animate-float-slow,
+  .animate-float-reverse,
+  .animate-wave-drift,
+  .animate-page-enter,
+  .animate-modal-pop {
+    animation: none !important;
+  }
+  .reveal-hidden {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .reveal-transition,
+  .onira-card,
+  .onira-card-lift,
+  .admin-card {
+    transition: none !important;
+  }
 }

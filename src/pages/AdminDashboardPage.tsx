@@ -564,7 +564,7 @@ export const AdminDashboardPage: React.FC = () => {
         </header>
 
         {/* Body */}
-        <main className="flex-1 space-y-6 p-4 sm:p-8">
+        <main className="animate-page-enter flex-1 space-y-6 p-4 sm:p-8">
           {banner && (
             <div
               role="status"
@@ -596,7 +596,7 @@ export const AdminDashboardPage: React.FC = () => {
           {section === 'overview' && (
             <>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm">
+                <div className="admin-card rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium text-slate-500">Usuários cadastrados</span>
                     <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
@@ -607,7 +607,7 @@ export const AdminDashboardPage: React.FC = () => {
                   <p className="mt-1 text-xs text-emerald-600">Sincronizado com Supabase Auth</p>
                 </div>
 
-                <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm">
+                <div className="admin-card rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium text-slate-500">Temas de sonho</span>
                     <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-50 text-sky-600">
@@ -618,7 +618,7 @@ export const AdminDashboardPage: React.FC = () => {
                   <p className="mt-1 text-xs text-slate-500">Ativos no Roteiro do Sonho</p>
                 </div>
 
-                <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm">
+                <div className="admin-card rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium text-slate-500">Noites programadas</span>
                     <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-rose-50 text-rose-600">
@@ -631,7 +631,7 @@ export const AdminDashboardPage: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm">
+                <div className="admin-card rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium text-slate-500">Média de sono</span>
                     <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
@@ -865,7 +865,7 @@ export const AdminDashboardPage: React.FC = () => {
           aria-modal="true"
           aria-labelledby="theme-modal-title"
         >
-          <div className="w-full max-w-lg rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl sm:p-7">
+          <div className="animate-modal-pop w-full max-w-lg rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl sm:p-7">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-[11px] font-bold tracking-[0.16em] text-violet-600 uppercase">
@@ -1008,7 +1008,7 @@ export const AdminDashboardPage: React.FC = () => {
           role="dialog"
           aria-modal="true"
         >
-          <div className="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl">
+          <div className="animate-modal-pop w-full max-w-md rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl">
             <h2 className="text-lg font-bold text-slate-900">Excluir tema de sonho?</h2>
             <p className="mt-2 text-sm leading-relaxed text-slate-600">
               Tem certeza que deseja excluir o tema{' '}

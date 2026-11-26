@@ -208,19 +208,19 @@ export const HistoryPage: React.FC = () => {
     >
       {/* KPIs reais */}
       <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
-        <div className="onira-card rounded-2xl p-4">
+        <div className="onira-card onira-card-lift rounded-2xl p-4">
           <p className="text-[11px] font-semibold tracking-wider text-violet-300 uppercase">Total registrado</p>
           <p className="mt-2 text-2xl font-bold text-white">{analytics.total}</p>
           <p className="mt-0.5 text-xs text-slate-400">{analytics.completed} concluídas</p>
         </div>
-        <div className="onira-card rounded-2xl p-4">
+        <div className="onira-card onira-card-lift rounded-2xl p-4">
           <p className="text-[11px] font-semibold tracking-wider text-sky-300 uppercase">Duração média</p>
           <p className="mt-2 text-2xl font-bold text-white">
             {analytics.avgDuration > 0 ? formatDuration(analytics.avgDuration) : '--'}
           </p>
           <p className="mt-0.5 text-xs text-slate-400">média real planejada</p>
         </div>
-        <div className="onira-card rounded-2xl p-4">
+        <div className="onira-card onira-card-lift rounded-2xl p-4">
           <p className="text-[11px] font-semibold tracking-wider text-amber-300 uppercase">Qualidade matinal</p>
           <p className="mt-2 text-2xl font-bold text-white">
             {analytics.avgRating > 0 ? `${analytics.avgRating.toFixed(1)}/5` : '--'}
@@ -229,7 +229,7 @@ export const HistoryPage: React.FC = () => {
             {analytics.ratedCount > 0 ? `${analytics.ratedCount} avaliações reais` : 'Sem avaliações ainda'}
           </p>
         </div>
-        <div className="onira-card rounded-2xl p-4">
+        <div className="onira-card onira-card-lift rounded-2xl p-4">
           <p className="text-[11px] font-semibold tracking-wider text-emerald-300 uppercase">Tema favorito</p>
           <p className="mt-2 truncate text-lg font-bold text-white">{analytics.favoriteTheme}</p>
           <p className="mt-0.5 text-xs text-slate-400">mais escolhido por você</p>
@@ -455,7 +455,7 @@ export const HistoryPage: React.FC = () => {
         >
           <form
             onSubmit={handleSaveEvaluation}
-            className="onira-card w-full max-w-md space-y-5 rounded-3xl p-6"
+            className="onira-card animate-modal-pop w-full max-w-md space-y-5 rounded-3xl p-6"
           >
             <div className="flex items-start justify-between">
               <div>
