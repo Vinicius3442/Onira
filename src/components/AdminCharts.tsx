@@ -1,6 +1,7 @@
 import React from 'react';
 import type { DreamNightWithProfile, DreamTheme } from '../types/database';
 import { resolveColorHex } from '../lib/colors';
+import { AnimatedCounter } from './AnimatedCounter';
 
 interface ActivityChartProps {
   nights: DreamNightWithProfile[];
@@ -145,9 +146,11 @@ export const AdminThemeDonutChart: React.FC<ThemeDonutChartProps> = ({ themes, n
           })}
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-          <span className="text-2xl font-extrabold text-slate-900">
-            {hasNights ? nights.length : themes.length}
-          </span>
+          <AnimatedCounter
+            value={hasNights ? nights.length : themes.length}
+            duration={750}
+            className="text-2xl font-extrabold text-slate-900"
+          />
           <span className="text-[11px] font-medium text-slate-500">
             {hasNights ? 'noites' : 'temas'}
           </span>

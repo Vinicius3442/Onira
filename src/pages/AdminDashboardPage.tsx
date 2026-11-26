@@ -25,6 +25,7 @@ import { supabase } from '../lib/supabase';
 import { OniraLogo } from '../components/OniraLogo';
 import { AdminActivityChart, AdminThemeDonutChart } from '../components/AdminCharts';
 import { AdminTag, UserAvatar } from '../components/UserAvatar';
+import { AnimatedCounter, AnimatedDuration } from '../components/AnimatedCounter';
 import {
   LIGHT_COLOR_PRESETS,
   formatDuration,
@@ -129,10 +130,9 @@ export const AdminDashboardPage: React.FC = () => {
   }, [loadDashboardData]);
 
   // Métricas reais dos 4 KPIs
-  const avgSleepDuration = useMemo(() => {
-    if (nights.length === 0) return '0h';
-    const avg = nights.reduce((acc, n) => acc + Number(n.duration_hours), 0) / nights.length;
-    return formatDuration(avg);
+  const avgSleepHours = useMemo(() => {
+    if (nights.length === 0) return 0;
+    return nights.reduce((acc, n) => acc + Number(n.duration_hours), 0) / nights.length;
   }, [nights]);
 
   const filteredThemes = useMemo(() => {
@@ -403,13 +403,13 @@ export const AdminDashboardPage: React.FC = () => {
         />
       )}
 
-      {/* Left Dark Sidebar (fiel ao protótipo Tela admin dashboard exemplo.png) */}
+      {/* Left Dark Sidebar travada em 100% da altura da tela (sticky h-screen no desktop) */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col justify-between bg-[#110E22] px-4 py-6 text-slate-200 transition-transform duration-200 lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 flex h-screen w-64 shrink-0 flex-col justify-between bg-[#110E22] px-4 py-5 text-slate-200 transition-transform duration-200 lg:sticky lg:top-0 lg:translate-x-0 ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div>
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto pr-0.5">
           <div className="flex items-center justify-between px-2">
             <OniraLogo variant="compact" theme="dark" />
             <button
@@ -473,8 +473,8 @@ export const AdminDashboardPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Rodapé Admin */}
-        <div className="border-t border-white/10 pt-4">
+        {/* Rodapé Admin fixo na base da sidebar */}
+        <div className="mt-3 shrink-0 border-t border-white/10 pt-3.5">
           <div className="flex items-center justify-between gap-2 rounded-xl bg-white/[0.04] p-3">
             <Link to="/perfil" className="flex min-w-0 items-center gap-2.5 hover:opacity-90" title="Alterar foto no perfil">
               <UserAvatar src={avatarUrl} name={profile?.full_name} size="sm" />
@@ -605,7 +605,9 @@ export const AdminDashboardPage: React.FC = () => {
                       <Users className="h-4 w-4" />
                     </span>
                   </div>
-                  <p className="mt-3 text-3xl font-extrabold text-slate-900">{profiles.length}</p>
+                  <p className="mt-3 text-3xl font-extrabold text-slate-900">
+                    <AnimatedCounter value={profiles.length} duration={650} />
+                  </p>
                   <p className="mt-1 text-xs text-emerald-600">Sincronizado com Supabase Auth</p>
                 </div>
 
@@ -616,7 +618,9 @@ export const AdminDashboardPage: React.FC = () => {
                       <Sparkles className="h-4 w-4" />
                     </span>
                   </div>
-                  <p className="mt-3 text-3xl font-extrabold text-slate-900">{themes.length}</p>
+                  <p className="mt-3 text-3xl font-extrabold text-slate-900">
+                    <AnimatedCounter value={themes.length} duration={650} />
+                  </p>
                   <p className="mt-1 text-xs text-slate-500">Ativos no Roteiro do Sonho</p>
                 </div>
 
@@ -627,9 +631,15 @@ export const AdminDashboardPage: React.FC = () => {
                       <Moon className="h-4 w-4" />
                     </span>
                   </div>
-                  <p className="mt-3 text-3xl font-extrabold text-slate-900">{nights.length}</p>
+                  <p className="mt-3 text-3xl font-extrabold text-slate-900">
+                    <AnimatedCounter value={nights.length} duration={750} />
+                  </p>
                   <p className="mt-1 text-xs text-slate-500">
-                    {nights.filter((n) => n.status === 'Programada').length} com status Programada
+                    <AnimatedCounter
+                      value={nights.filter((n) => n.status === 'Programada').length}
+                      duration={750}
+                    />{' '}
+                    com status Programada
                   </p>
                 </div>
 
@@ -640,7 +650,9 @@ export const AdminDashboardPage: React.FC = () => {
                       <Clock className="h-4 w-4" />
                     </span>
                   </div>
-                  <p className="mt-3 text-3xl font-extrabold text-slate-900">{avgSleepDuration}</p>
+                  <p className="mt-3 text-3xl font-extrabold text-slate-900">
+                    <AnimatedDuration hours={avgSleepHours} duration={750} />
+                  </p>
                   <p className="mt-1 text-xs text-slate-500">Média real das noites</p>
                 </div>
               </div>
