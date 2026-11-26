@@ -26,6 +26,7 @@ A interface foi construída seguindo a identidade visual oficial da ONIRA (logo 
 
 - **Vinícius Montuani** — Técnico em Desenvolvimento de Sistemas (Back-end & Front-end)
 - **Pietro** — Técnico em Desenvolvimento de Sistemas (Back-end & Front-end)
+- **Arthur Silva Andrade** — Integrante da Equipe
 - **Lívia** — Técnico em Multimídia (Design, Identidade Visual & Produto)
 - **Luara** — Técnico em Multimídia (Design, Identidade Visual & Produto)
 
