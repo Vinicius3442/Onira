@@ -22,11 +22,15 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   email TEXT NOT NULL UNIQUE,
   habitual_sleep_time TEXT NOT NULL DEFAULT '22:30'
     CHECK (habitual_sleep_time ~ '^([01][0-9]|2[0-3]):[0-5][0-9]$'),
+  avatar_url TEXT,
   role TEXT NOT NULL DEFAULT 'user'
     CHECK (role IN ('user', 'admin')),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+ALTER TABLE public.profiles
+  ADD COLUMN IF NOT EXISTS avatar_url TEXT;
 
 COMMENT ON TABLE public.profiles IS 'Perfis dos usuários ONIRA. Senhas ficam armazenadas com hash bcrypt em auth.users.';
 COMMENT ON COLUMN public.profiles.habitual_sleep_time IS 'Horário habitual de dormir (RF01 / CT-01), formato HH:MM.';

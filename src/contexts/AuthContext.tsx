@@ -20,6 +20,7 @@ interface AuthContextValue {
   session: Session | null;
   user: User | null;
   profile: Profile | null;
+  avatarUrl: string | null;
   loading: boolean;
   profileLoading: boolean;
   isAdmin: boolean;
@@ -28,6 +29,7 @@ interface AuthContextValue {
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<Profile | null>;
   updateProfile: (updates: { fullName: string; habitualSleepTime: string }) => Promise<{ error: string | null }>;
+  updateAvatar: (avatarDataUrl: string | null) => Promise<{ error: string | null }>;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -270,10 +272,46 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     [user, fetchProfile]
   );
 
+  const updateAvatar = useCallback(
+    async (avatarDataUrl: string | null): Promise<{ error: string | null }> => {
+      if (!user) return { error: 'Usuário não autenticado.' };
+
+      const { data, error } = await supabase.auth.updateUser({
+        data: { avatar_url: avatarDataUrl },
+      });
+
+      if (error) {
+        return { error: `Não foi possível salvar a foto de perfil: ${error.message}` };
+      }
+
+      if (data.user) {
+        setUser(data.user);
+      }
+
+      // Sincroniza também na tabela profiles caso a coluna avatar_url já exista
+      await supabase
+        .from('profiles')
+        .update({ avatar_url: avatarDataUrl })
+        .eq('id', user.id)
+        .then(() => undefined, () => undefined);
+
+      return { error: null };
+    },
+    [user]
+  );
+
+  const metaAvatar =
+    typeof user?.user_metadata?.avatar_url === 'string' && user.user_metadata.avatar_url.length > 0
+      ? user.user_metadata.avatar_url
+      : null;
+
+  const avatarUrl = metaAvatar || profile?.avatar_url || null;
+
   const value: AuthContextValue = {
     session,
     user,
     profile,
+    avatarUrl,
     loading,
     profileLoading,
     isAdmin: profile?.role === 'admin',
@@ -282,6 +320,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     signOut,
     refreshProfile,
     updateProfile,
+    updateAvatar,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

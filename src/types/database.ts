@@ -5,6 +5,7 @@ export interface Profile {
   full_name: string;
   email: string;
   habitual_sleep_time: string;
+  avatar_url?: string | null;
   role: UserRole;
   created_at: string;
   updated_at: string;

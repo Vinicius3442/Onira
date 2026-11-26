@@ -24,6 +24,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import { OniraLogo } from '../components/OniraLogo';
 import { AdminActivityChart, AdminThemeDonutChart } from '../components/AdminCharts';
+import { AdminTag, UserAvatar } from '../components/UserAvatar';
 import {
   LIGHT_COLOR_PRESETS,
   formatDuration,
@@ -54,7 +55,7 @@ const EMPTY_FORM: ThemeFormState = {
 };
 
 export const AdminDashboardPage: React.FC = () => {
-  const { profile, user, signOut } = useAuth();
+  const { profile, user, avatarUrl, signOut } = useAuth();
   const navigate = useNavigate();
 
   const [section, setSection] = useState<AdminSection>('overview');
@@ -475,19 +476,20 @@ export const AdminDashboardPage: React.FC = () => {
         {/* Rodapé Admin */}
         <div className="border-t border-white/10 pt-4">
           <div className="flex items-center justify-between gap-2 rounded-xl bg-white/[0.04] p-3">
-            <div className="flex items-center gap-2.5 overflow-hidden">
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 text-xs font-bold text-white">
-                {getInitials(profile?.full_name)}
-              </div>
+            <Link to="/perfil" className="flex min-w-0 items-center gap-2.5 hover:opacity-90" title="Alterar foto no perfil">
+              <UserAvatar src={avatarUrl} name={profile?.full_name} size="sm" />
               <div className="min-w-0">
-                <p className="truncate text-xs font-semibold text-white">{profile?.full_name || 'Administrador'}</p>
+                <div className="flex items-center gap-1.5">
+                  <p className="truncate text-xs font-semibold text-white">{profile?.full_name || 'Administrador'}</p>
+                  <AdminTag compact />
+                </div>
                 <p className="truncate text-[10px] text-violet-300">Super administrador</p>
               </div>
-            </div>
+            </Link>
             <button
               type="button"
               onClick={handleLogout}
-              className="cursor-pointer rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-rose-500/15 hover:text-rose-300"
+              className="shrink-0 cursor-pointer rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-rose-500/15 hover:text-rose-300"
               title="Sair"
               aria-label="Sair"
             >

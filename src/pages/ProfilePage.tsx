@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   User,
   Clock,
@@ -6,22 +6,29 @@ import {
   CheckCircle2,
   AlertCircle,
   Loader2,
-  ShieldCheck,
   Mail,
   Calendar,
+  Camera,
+  Trash2,
+  Upload,
 } from 'lucide-react';
 import { AppShell } from '../components/AppShell';
+import { AdminTag, UserAvatar } from '../components/UserAvatar';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
-import { getInitials } from '../lib/colors';
+import { compressAvatarFile } from '../lib/avatar';
 
 export const ProfilePage: React.FC = () => {
-  const { user, profile, isAdmin, updateProfile } = useAuth();
+  const { user, profile, avatarUrl, isAdmin, updateProfile, updateAvatar } = useAuth();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const [fullName, setFullName] = useState(profile?.full_name || '');
   const [sleepTime, setSleepTime] = useState(profile?.habitual_sleep_time || '22:30');
   const [savingProfile, setSavingProfile] = useState(false);
   const [profileMsg, setProfileMsg] = useState<{ type: 'ok' | 'err'; text: string } | null>(null);
+
+  const [avatarBusy, setAvatarBusy] = useState(false);
+  const [avatarMsg, setAvatarMsg] = useState<{ type: 'ok' | 'err'; text: string } | null>(null);
 
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -34,6 +41,46 @@ export const ProfilePage: React.FC = () => {
       setSleepTime(profile.habitual_sleep_time);
     }
   }, [profile]);
+
+  const handleAvatarFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+
+    setAvatarMsg(null);
+    setAvatarBusy(true);
+    try {
+      const compressed = await compressAvatarFile(file);
+      const res = await updateAvatar(compressed);
+      if (res.error) {
+        setAvatarMsg({ type: 'err', text: res.error });
+      } else {
+        setAvatarMsg({ type: 'ok', text: 'Foto de perfil salva no Supabase!' });
+      }
+    } catch (err) {
+      setAvatarMsg({
+        type: 'err',
+        text: err instanceof Error ? err.message : 'Erro ao processar a foto selecionada.',
+      });
+    } finally {
+      setAvatarBusy(false);
+    }
+  };
+
+  const handleRemoveAvatar = async () => {
+    setAvatarMsg(null);
+    setAvatarBusy(true);
+    try {
+      const res = await updateAvatar(null);
+      if (res.error) {
+        setAvatarMsg({ type: 'err', text: res.error });
+      } else {
+        setAvatarMsg({ type: 'ok', text: 'Foto de perfil removida.' });
+      }
+    } finally {
+      setAvatarBusy(false);
+    }
+  };
 
   const handleProfileSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,20 +140,78 @@ export const ProfilePage: React.FC = () => {
   return (
     <AppShell
       title="Meu Perfil e Rotina"
-      subtitle="Gerencie seus dados cadastrais, horário habitual de dormir e segurança da sua conta ONIRA."
+      subtitle="Personalize sua foto de perfil, seus dados cadastrais, horário habitual de dormir e segurança da conta ONIRA."
     >
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-        {/* Card resumo da conta */}
+        {/* Card de Foto de Perfil e Resumo da Conta */}
         <div className="onira-card rounded-3xl p-6 lg:col-span-4">
           <div className="flex flex-col items-center text-center">
-            <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-violet-600 to-purple-500 text-2xl font-bold text-white shadow-lg shadow-violet-600/30">
-              {getInitials(profile?.full_name)}
+            {/* Avatar interativo com upload */}
+            <div className="group relative">
+              <UserAvatar src={avatarUrl} name={profile?.full_name} size="xl" />
+              <button
+                type="button"
+                disabled={avatarBusy}
+                onClick={() => fileInputRef.current?.click()}
+                className="absolute right-0 bottom-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-[#121027] bg-violet-600 text-white shadow-lg transition-transform hover:scale-110 hover:bg-violet-500 disabled:opacity-60"
+                title="Alterar foto de perfil"
+                aria-label="Alterar foto de perfil"
+              >
+                {avatarBusy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Camera className="h-4 w-4" />}
+              </button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                onChange={handleAvatarFileChange}
+                className="hidden"
+              />
             </div>
-            <h2 className="mt-4 text-lg font-bold text-white">{profile?.full_name || 'Usuário ONIRA'}</h2>
-            <span className="mt-1.5 inline-flex items-center gap-1.5 rounded-full border border-violet-400/30 bg-violet-500/15 px-3 py-0.5 text-xs font-semibold text-violet-200">
-              <ShieldCheck className="h-3.5 w-3.5" />
-              {isAdmin ? 'Administrador' : 'Usuário Padrão'}
-            </span>
+
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+              <h2 className="text-lg font-bold text-white">{profile?.full_name || 'Usuário ONIRA'}</h2>
+              {isAdmin && <AdminTag />}
+            </div>
+
+            <p className="mt-0.5 text-xs text-slate-400">
+              {isAdmin ? 'Conta com privilégios de administração' : 'Conta pessoal ONIRA'}
+            </p>
+
+            {/* Controles da foto */}
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+              <button
+                type="button"
+                disabled={avatarBusy}
+                onClick={() => fileInputRef.current?.click()}
+                className="inline-flex cursor-pointer items-center gap-1.5 rounded-xl border border-violet-400/35 bg-violet-500/15 px-3 py-1.5 text-xs font-semibold text-violet-200 transition-colors hover:bg-violet-500/25 disabled:opacity-60"
+              >
+                <Upload className="h-3.5 w-3.5" />
+                {avatarUrl ? 'Trocar foto' : 'Adicionar foto'}
+              </button>
+              {avatarUrl && (
+                <button
+                  type="button"
+                  disabled={avatarBusy}
+                  onClick={() => void handleRemoveAvatar()}
+                  className="inline-flex cursor-pointer items-center gap-1 rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-300 transition-colors hover:border-rose-400/35 hover:bg-rose-500/12 hover:text-rose-200 disabled:opacity-60"
+                >
+                  <Trash2 className="h-3.5 w-3.5" />
+                  Remover
+                </button>
+              )}
+            </div>
+
+            {avatarMsg && (
+              <p
+                className={`mt-3 w-full rounded-xl border px-3 py-2 text-xs ${
+                  avatarMsg.type === 'ok'
+                    ? 'border-emerald-500/35 bg-emerald-500/12 text-emerald-200'
+                    : 'border-rose-500/35 bg-rose-500/12 text-rose-200'
+                }`}
+              >
+                {avatarMsg.text}
+              </p>
+            )}
           </div>
 
           <div className="mt-6 space-y-3 border-t border-white/10 pt-5 text-xs text-slate-300">
