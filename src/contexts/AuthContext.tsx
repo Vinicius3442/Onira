@@ -21,6 +21,7 @@ interface AuthContextValue {
   user: User | null;
   profile: Profile | null;
   loading: boolean;
+  profileLoading: boolean;
   isAdmin: boolean;
   signUp: (payload: SignUpPayload) => Promise<SignUpResult>;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
@@ -36,59 +37,66 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [profileLoading, setProfileLoading] = useState(false);
 
   const fetchProfile = useCallback(async (authUser: User | null): Promise<Profile | null> => {
     if (!authUser) {
       setProfile(null);
+      setProfileLoading(false);
       return null;
     }
 
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', authUser.id)
-      .maybeSingle();
+    setProfileLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', authUser.id)
+        .maybeSingle();
 
-    if (!error && data) {
-      const typedProfile = data as Profile;
-      setProfile(typedProfile);
-      return typedProfile;
+      if (!error && data) {
+        const typedProfile = data as Profile;
+        setProfile(typedProfile);
+        return typedProfile;
+      }
+
+      // Fallback: se o perfil ainda não foi criado pelo trigger, cria com segurança (role = 'user')
+      const meta = authUser.user_metadata || {};
+      const fallbackName =
+        typeof meta.full_name === 'string' && meta.full_name.trim().length >= 2
+          ? meta.full_name.trim()
+          : (authUser.email || 'Sonhador').split('@')[0];
+      const fallbackSleep =
+        typeof meta.habitual_sleep_time === 'string' && /^([01][0-9]|2[0-3]):[0-5][0-9]$/.test(meta.habitual_sleep_time)
+          ? meta.habitual_sleep_time
+          : '22:30';
+
+      const { data: inserted, error: insertError } = await supabase
+        .from('profiles')
+        .upsert(
+          {
+            id: authUser.id,
+            full_name: fallbackName,
+            email: (authUser.email || '').toLowerCase(),
+            habitual_sleep_time: fallbackSleep,
+            role: 'user',
+          },
+          { onConflict: 'id' }
+        )
+        .select('*')
+        .maybeSingle();
+
+      if (!insertError && inserted) {
+        const typedProfile = inserted as Profile;
+        setProfile(typedProfile);
+        return typedProfile;
+      }
+
+      setProfile(null);
+      return null;
+    } finally {
+      setProfileLoading(false);
     }
-
-    // Fallback: se o perfil ainda não foi criado pelo trigger, cria com segurança (role = 'user')
-    const meta = authUser.user_metadata || {};
-    const fallbackName =
-      typeof meta.full_name === 'string' && meta.full_name.trim().length >= 2
-        ? meta.full_name.trim()
-        : (authUser.email || 'Sonhador').split('@')[0];
-    const fallbackSleep =
-      typeof meta.habitual_sleep_time === 'string' && /^([01][0-9]|2[0-3]):[0-5][0-9]$/.test(meta.habitual_sleep_time)
-        ? meta.habitual_sleep_time
-        : '22:30';
-
-    const { data: inserted, error: insertError } = await supabase
-      .from('profiles')
-      .upsert(
-        {
-          id: authUser.id,
-          full_name: fallbackName,
-          email: (authUser.email || '').toLowerCase(),
-          habitual_sleep_time: fallbackSleep,
-          role: 'user',
-        },
-        { onConflict: 'id' }
-      )
-      .select('*')
-      .maybeSingle();
-
-    if (!insertError && inserted) {
-      const typedProfile = inserted as Profile;
-      setProfile(typedProfile);
-      return typedProfile;
-    }
-
-    setProfile(null);
-    return null;
   }, []);
 
   useEffect(() => {
@@ -267,6 +275,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     user,
     profile,
     loading,
+    profileLoading,
     isAdmin: profile?.role === 'admin',
     signUp,
     signIn,

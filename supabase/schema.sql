@@ -254,6 +254,9 @@ BEGIN
 END;
 $$;
 
+-- Restringe promote_to_admin apenas ao SQL Editor / service_role (nunca acessível via API pública)
+REVOKE ALL ON FUNCTION public.promote_to_admin(TEXT) FROM PUBLIC, anon, authenticated;
+
 -- ----------------------------------------------------------------------------
 -- 6. ROW LEVEL SECURITY (RLS) — SEGURANÇA NO BANCO DE DADOS
 -- ----------------------------------------------------------------------------

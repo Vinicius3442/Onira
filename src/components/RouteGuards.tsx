@@ -40,13 +40,10 @@ export const GuestRoute: React.FC<{ children: React.ReactNode }> = ({ children }
  * garantindo que nenhum dado administrativo seja consultado ou exibido.
  */
 export const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user, profile, loading, isAdmin } = useAuth();
+  const { user, profile, loading, profileLoading, isAdmin } = useAuth();
 
-  if (loading) return <FullScreenLoader />;
+  if (loading || profileLoading) return <FullScreenLoader />;
   if (!user) return <Navigate to="/login" replace />;
-
-  // Aguarda carregamento inicial do profile se ainda estiver nulo após login
-  if (!profile) return <FullScreenLoader />;
 
   if (!isAdmin) {
     return (
@@ -61,7 +58,7 @@ export const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }
           </span>
           <h1 className="mt-4 text-2xl font-bold text-white">Área exclusiva para administradores</h1>
           <p className="mt-2.5 text-sm leading-relaxed text-slate-400">
-            Sua conta (<span className="font-medium text-slate-200">{profile.full_name}</span>) possui acesso de
+            Sua conta (<span className="font-medium text-slate-200">{profile?.full_name || user.email}</span>) possui acesso de
             usuário comum. Nenhum dado administrativo está disponível para este perfil.
           </p>
           <div className="mt-7 flex flex-col gap-3">
