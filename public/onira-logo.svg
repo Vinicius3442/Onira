@@ -1,24 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100" fill="none">
   <defs>
     <linearGradient id="ringGrad" x1="12" y1="12" x2="72" y2="72" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#C084FC" />
-      <stop offset="55%" stop-color="#8B5CF6" />
-      <stop offset="100%" stop-color="#38BDF8" />
+      <stop offset="0%" stop-color="#A78BFA" />
+      <stop offset="55%" stop-color="#7665E8" />
+      <stop offset="100%" stop-color="#F5F3FA" />
     </linearGradient>
     <linearGradient id="sparkleGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#A855F7" />
-      <stop offset="100%" stop-color="#38BDF8" />
+      <stop offset="0%" stop-color="#A78BFA" />
+      <stop offset="100%" stop-color="#7665E8" />
     </linearGradient>
   </defs>
   <!-- Orbital Moon Emblem -->
   <g transform="translate(8, 12)">
     <circle cx="34" cy="34" r="27" stroke="url(#ringGrad)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="128 38" />
-    <circle cx="53" cy="14" r="3" fill="#7DD3FC" />
-    <path d="M37 21C30.8 22 26.4 27.5 26.8 33.9C27.2 40.8 33 46.1 39.9 45.7C43.3 45.5 46.3 43.9 48.3 41.4C46.5 42 44.7 42.2 42.8 41.9C36.6 41 32.3 35.2 33.2 29C33.7 25.8 35.1 23 37 21Z" fill="#FFFFFF" />
-    <path d="M44 21L45.2 24.3L48.5 25.5L45.2 26.7L44 30L42.8 26.7L39.5 25.5L42.8 24.3L44 21Z" fill="#C084FC" />
+    <circle cx="53" cy="14" r="3" fill="#A78BFA" />
+    <path d="M37 21C30.8 22 26.4 27.5 26.8 33.9C27.2 40.8 33 46.1 39.9 45.7C43.3 45.5 46.3 43.9 48.3 41.4C46.5 42 44.7 42.2 42.8 41.9C36.6 41 32.3 35.2 33.2 29C33.7 25.8 35.1 23 37 21Z" fill="#F5F3FA" />
+    <path d="M44 21L45.2 24.3L48.5 25.5L45.2 26.7L44 30L42.8 26.7L39.5 25.5L42.8 24.3L44 21Z" fill="#A78BFA" />
   </g>
   <!-- Geometric ONIRA Wordmark (keeping the iconic 4-point star inside 'A') -->
-  <g transform="translate(96, 22)" fill="#FFFFFF">
+  <g transform="translate(96, 22)" fill="#F5F3FA">
     <!-- O -->
     <path fill-rule="evenodd" clip-rule="evenodd" d="M22 0C9.85 0 0 9.4 0 21C0 32.6 9.85 42 22 42C34.15 42 44 32.6 44 21C44 9.4 34.15 0 22 0ZM22 8.2C14.7 8.2 9 13.9 9 21C9 28.1 14.7 33.8 22 33.8C29.3 33.8 35 28.1 35 21C35 13.9 29.3 8.2 22 8.2Z" />
     <!-- N -->
@@ -31,5 +31,5 @@
     <path fill-rule="evenodd" clip-rule="evenodd" d="M218.5 1H227.7L246.5 41H236.8L233.2 33H212.8L209.2 41H199.8L218.5 1ZM223 11.4L219.2 21.2L209.5 24.6L219.2 28L223 37.8L226.8 28L236.5 24.6L226.8 21.2L223 11.4Z" />
   </g>
   <!-- Tagline -->
-  <text x="97" y="84" fill="#A5B4FC" font-family="Plus Jakarta Sans, Inter, sans-serif" font-size="11.2" font-weight="600" letter-spacing="2.8">SONHE. DESCANSE. VIVA MELHOR.</text>
+  <text x="97" y="84" fill="#A78BFA" font-family="Plus Jakarta Sans, Inter, sans-serif" font-size="11.2" font-weight="600" letter-spacing="2.8">SONHE. DESCANSE. VIVA MELHOR.</text>
 </svg>

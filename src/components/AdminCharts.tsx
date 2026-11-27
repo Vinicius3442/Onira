@@ -44,8 +44,8 @@ export const AdminActivityChart: React.FC<ActivityChartProps> = ({ nights }) => 
       <svg viewBox={`0 0 ${width} ${height + 24}`} className="h-52 w-full overflow-visible">
         <defs>
           <linearGradient id="adminAreaGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.28" />
-            <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.01" />
+            <stop offset="0%" stopColor="#7665E8" stopOpacity="0.28" />
+            <stop offset="100%" stopColor="#A78BFA" stopOpacity="0.02" />
           </linearGradient>
         </defs>
 
@@ -55,8 +55,8 @@ export const AdminActivityChart: React.FC<ActivityChartProps> = ({ nights }) => 
           const val = Math.round(ratio * maxVal);
           return (
             <g key={idx}>
-              <line x1={padX} y1={y} x2={width - padX} y2={y} stroke="#E2E8F0" strokeDasharray="4 4" />
-              <text x={4} y={y + 4} fill="#94A3B8" fontSize="10">
+              <line x1={padX} y1={y} x2={width - padX} y2={y} stroke="#E4DFF5" strokeDasharray="4 4" />
+              <text x={4} y={y + 4} fill="#64748B" fontSize="10">
                 {val}
               </text>
             </g>
@@ -64,11 +64,11 @@ export const AdminActivityChart: React.FC<ActivityChartProps> = ({ nights }) => 
         })}
 
         <path d={areaPath} fill="url(#adminAreaGrad)" />
-        <path d={linePath} fill="none" stroke="#7C3AED" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
+        <path d={linePath} fill="none" stroke="#7665E8" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
 
         {points.map((pt) => (
           <g key={pt.key}>
-            <circle cx={pt.x} cy={pt.y} r="4.5" fill="#FFFFFF" stroke="#7C3AED" strokeWidth="2.5" />
+            <circle cx={pt.x} cy={pt.y} r="4.5" fill="#F5F3FA" stroke="#7665E8" strokeWidth="2.5" />
             <text x={pt.x} y={height + 12} textAnchor="middle" fill="#64748B" fontSize="10.5">
               {pt.label}
             </text>
@@ -124,7 +124,7 @@ export const AdminThemeDonutChart: React.FC<ThemeDonutChartProps> = ({ themes, n
     <div className="flex flex-col items-center">
       <div className="relative flex h-44 w-44 items-center justify-center">
         <svg viewBox="0 0 150 150" className="h-full w-full -rotate-90">
-          <circle cx="75" cy="75" r={radius} fill="none" stroke="#F1F5F9" strokeWidth="16" />
+          <circle cx="75" cy="75" r={radius} fill="none" stroke="#F5F3FA" strokeWidth="16" />
           {slices.map((slice) => {
             const fraction = slice.count / total;
             const dash = fraction * circumference;

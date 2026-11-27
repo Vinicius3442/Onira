@@ -72,7 +72,7 @@ export const ForgotPasswordPage: React.FC = () => {
       footer={
         <>
           Lembrou sua senha?{' '}
-          <Link to="/login" className="font-semibold text-violet-400 transition-colors hover:text-violet-300">
+          <Link to="/login" className="font-semibold text-onira-lavender transition-colors hover:text-onira-offwhite">
             Voltar ao login
           </Link>
         </>
@@ -81,9 +81,9 @@ export const ForgotPasswordPage: React.FC = () => {
       {/* Emblema visual central fiel ao protótipo 03 REDEFINIÇÃO DE SENHA */}
       <div className="mb-6 flex justify-center">
         <div className="relative flex h-24 w-24 items-center justify-center">
-          <div className="absolute inset-0 rounded-full border border-violet-500/20" />
-          <div className="absolute inset-3 rounded-full border border-violet-400/30 bg-violet-500/10" />
-          <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-violet-400/40 bg-[#1B163B] text-violet-300 shadow-[0_0_25px_rgba(139,92,246,0.35)]">
+          <div className="absolute inset-0 rounded-full border border-onira-purple/25" />
+          <div className="absolute inset-3 rounded-full border border-onira-lavender/35 bg-onira-purple/15" />
+          <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-onira-lavender/45 bg-onira-surface-elevated text-onira-lavender shadow-[0_0_25px_rgba(118,101,232,0.4)]">
             <Mail className="h-5 w-5" />
           </div>
         </div>
@@ -148,7 +148,7 @@ export const ForgotPasswordPage: React.FC = () => {
         </button>
 
         <div className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-3.5 text-xs text-slate-400">
-          <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-violet-400" />
+          <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-onira-lavender" />
           <div>
             <p className="font-semibold text-slate-200">Link protegido</p>
             <p className="mt-0.5 leading-relaxed">

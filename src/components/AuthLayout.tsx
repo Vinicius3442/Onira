@@ -32,7 +32,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
       <div className="animate-page-enter grid w-full max-w-5xl grid-cols-1 items-stretch gap-8 lg:grid-cols-12">
         {/* Painel visual lateral (visível no desktop) */}
         <div className="onira-card relative hidden flex-col justify-between overflow-hidden rounded-[2rem] p-9 lg:col-span-6 lg:flex">
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-violet-600/15 via-transparent to-sky-500/10" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-onira-purple/20 via-transparent to-onira-lavender/12" />
 
           <div className="relative z-10">
             <Link to="/" className="inline-block transition-opacity hover:opacity-90">
@@ -40,32 +40,32 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
             </Link>
             <p className="mt-6 max-w-md text-sm leading-relaxed text-slate-300">
               Conduza seus sonhos com iluminação inteligente NeoPixel e acorde de forma suave todos os dias com o{' '}
-              <span className="font-semibold text-white">Travesseiro Inteligente ONIRA</span> da Dormire Tecnologia do
+              <span className="font-semibold text-onira-offwhite">Travesseiro Inteligente ONIRA</span> da Dormire Tecnologia do
               Sono.
             </p>
           </div>
 
-          <div className="group relative z-10 my-6 overflow-hidden rounded-2xl border border-white/10 bg-[#0A0818] shadow-xl">
+          <div className="group relative z-10 my-6 overflow-hidden rounded-2xl border border-onira-lavender/15 bg-onira-night-deep shadow-xl">
             <img
               src="/images/onira-pillow.png"
               alt="Travesseiro inteligente ONIRA em quarto aconchegante"
               className="h-60 w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
             />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#080715] via-[#080715]/75 to-transparent p-4">
-              <div className="flex items-center gap-2 text-xs font-medium text-violet-200">
-                <Sparkles className="h-3.5 w-3.5 text-sky-300" />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-onira-night via-onira-night/75 to-transparent p-4">
+              <div className="flex items-center gap-2 text-xs font-medium text-onira-offwhite">
+                <Sparkles className="h-3.5 w-3.5 text-onira-lavender" />
                 Indução luminosa personalizada + despertar suave
               </div>
             </div>
           </div>
 
           <div className="relative z-10 grid grid-cols-2 gap-3 text-xs">
-            <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-400/35 hover:bg-white/[0.06]">
-              <p className="font-semibold text-white">Roteiro do Sonho</p>
+            <div className="rounded-xl border border-onira-lavender/15 bg-onira-offwhite/[0.03] p-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-onira-lavender/40 hover:bg-onira-offwhite/[0.06]">
+              <p className="font-semibold text-onira-offwhite">Roteiro do Sonho</p>
               <p className="mt-1 text-slate-400">Escolha tema, duração e despertar sob medida.</p>
             </div>
-            <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-400/35 hover:bg-white/[0.06]">
-              <p className="font-semibold text-white">Banco Real & Seguro</p>
+            <div className="rounded-xl border border-onira-lavender/15 bg-onira-offwhite/[0.03] p-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-onira-purple/50 hover:bg-onira-offwhite/[0.06]">
+              <p className="font-semibold text-onira-offwhite">Banco Real & Seguro</p>
               <p className="mt-1 text-slate-400">Autenticação Supabase com senhas protegidas por hash.</p>
             </div>
           </div>
@@ -83,11 +83,11 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
 
             {/* Eyebrow & Título */}
             <div className="mt-8">
-              <p className="text-[11px] font-bold tracking-[0.2em] text-violet-400 uppercase">{eyebrow}</p>
-              <h1 className="mt-2 text-3xl leading-tight font-bold tracking-tight text-white sm:text-[32px]">
+              <p className="text-[11px] font-bold tracking-[0.2em] text-onira-lavender uppercase">{eyebrow}</p>
+              <h1 className="mt-2 text-3xl leading-tight font-bold tracking-tight text-onira-offwhite sm:text-[32px]">
                 {titlePrimary}
                 <br />
-                <span className="bg-gradient-to-r from-violet-400 via-purple-300 to-sky-300 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-onira-purple via-onira-lavender to-onira-offwhite bg-clip-text text-transparent">
                   {titleHighlight}
                 </span>
               </h1>
@@ -98,10 +98,10 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
             <div className="mt-7">{children}</div>
           </div>
 
-          <div className="mt-7 border-t border-white/10 pt-5">
+          <div className="mt-7 border-t border-onira-lavender/15 pt-5">
             <div className="text-center text-sm text-slate-400">{footer}</div>
-            <div className="mt-4 flex items-center justify-center gap-1.5 text-[11px] text-slate-500">
-              <ShieldCheck className="h-3.5 w-3.5 text-violet-400/80" />
+            <div className="mt-4 flex items-center justify-center gap-1.5 text-[11px] text-slate-400">
+              <ShieldCheck className="h-3.5 w-3.5 text-onira-lavender/80" />
               Seus dados de sono são protegidos com criptografia
             </div>
           </div>

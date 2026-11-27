@@ -219,12 +219,12 @@ export const DreamScriptPage: React.FC = () => {
 
   const activeHex = selectedTheme
     ? selectedTheme.light_hex || resolveColorHex(selectedTheme.light_color)
-    : '#8B5CF6';
+    : '#7665E8';
 
   const statusBadgeClass = (status: NightStatus) => {
     switch (status) {
       case 'Programada':
-        return 'border-violet-400/35 bg-violet-500/15 text-violet-200';
+        return 'border-onira-lavender/35 bg-onira-purple/20 text-onira-offwhite';
       case 'Concluída':
         return 'border-emerald-400/35 bg-emerald-500/15 text-emerald-200';
       case 'Cancelada':
@@ -262,13 +262,13 @@ export const DreamScriptPage: React.FC = () => {
         {/* Métricas reais do usuário */}
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
           <div className="onira-card onira-card-lift rounded-2xl p-4">
-            <p className="text-[11px] font-semibold tracking-wider text-violet-300 uppercase">Programadas</p>
-            <p className="mt-2 text-2xl font-bold text-white">{stats.scheduledCount}</p>
+            <p className="text-[11px] font-semibold tracking-wider text-onira-lavender uppercase">Programadas</p>
+            <p className="mt-2 text-2xl font-bold text-onira-offwhite">{stats.scheduledCount}</p>
             <p className="mt-0.5 text-xs text-slate-400">noites ativas</p>
           </div>
           <div className="onira-card onira-card-lift rounded-2xl p-4">
-            <p className="text-[11px] font-semibold tracking-wider text-sky-300 uppercase">Próximo despertar</p>
-            <p className="mt-2 text-2xl font-bold text-white">
+            <p className="text-[11px] font-semibold tracking-wider text-onira-lavender uppercase">Próximo despertar</p>
+            <p className="mt-2 text-2xl font-bold text-onira-offwhite">
               {stats.nextNight ? stats.nextNight.wake_up_time : '--:--'}
             </p>
             <p className="mt-0.5 truncate text-xs text-slate-400">
@@ -277,17 +277,17 @@ export const DreamScriptPage: React.FC = () => {
           </div>
           <div className="onira-card onira-card-lift rounded-2xl p-4">
             <p className="text-[11px] font-semibold tracking-wider text-emerald-300 uppercase">Média planejada</p>
-            <p className="mt-2 text-2xl font-bold text-white">
+            <p className="mt-2 text-2xl font-bold text-onira-offwhite">
               {stats.avgDuration > 0 ? formatDuration(stats.avgDuration) : '--'}
             </p>
             <p className="mt-0.5 text-xs text-slate-400">
               {stats.total} {stats.total === 1 ? 'registro real' : 'registros reais'}
             </p>
           </div>
-          <Link to="/temas" className="onira-card onira-card-lift group rounded-2xl p-4 transition-colors hover:border-violet-400/40">
-            <p className="text-[11px] font-semibold tracking-wider text-purple-300 uppercase">Catálogo ativo</p>
-            <p className="mt-2 text-2xl font-bold text-white">{themes.length}</p>
-            <p className="mt-0.5 inline-flex items-center gap-1 text-xs text-violet-300 group-hover:text-violet-200">
+          <Link to="/temas" className="onira-card onira-card-lift group rounded-2xl p-4 transition-colors hover:border-onira-lavender/45">
+            <p className="text-[11px] font-semibold tracking-wider text-onira-lavender uppercase">Catálogo ativo</p>
+            <p className="mt-2 text-2xl font-bold text-onira-offwhite">{themes.length}</p>
+            <p className="mt-0.5 inline-flex items-center gap-1 text-xs text-onira-lavender group-hover:text-onira-offwhite">
               Ver biblioteca <ArrowRight className="h-3 w-3" />
             </p>
           </Link>
@@ -302,12 +302,12 @@ export const DreamScriptPage: React.FC = () => {
           >
             <div className="flex items-center justify-between gap-3">
               <div>
-                <p className="text-[11px] font-bold tracking-[0.2em] text-violet-400 uppercase">
+                <p className="text-[11px] font-bold tracking-[0.2em] text-onira-lavender uppercase">
                   Configuração da noite
                 </p>
-                <h2 className="mt-1 text-xl font-bold text-white">Escolha seu tema e despertar</h2>
+                <h2 className="mt-1 text-xl font-bold text-onira-offwhite">Escolha seu tema e despertar</h2>
               </div>
-              <Sparkles className="h-5 w-5 text-violet-400" />
+              <Sparkles className="h-5 w-5 text-onira-lavender" />
             </div>
 
             {formError && (
@@ -336,7 +336,7 @@ export const DreamScriptPage: React.FC = () => {
                 <label htmlFor="dream-theme-select" className="text-xs font-semibold text-slate-300">
                   Tema do sonho
                 </label>
-                <Link to="/temas" className="text-xs font-medium text-violet-300 hover:text-violet-200">
+                <Link to="/temas" className="text-xs font-medium text-onira-lavender hover:text-onira-offwhite">
                   Explorar biblioteca completa →
                 </Link>
               </div>
@@ -345,13 +345,13 @@ export const DreamScriptPage: React.FC = () => {
                 value={selectedThemeId}
                 onChange={(e) => setSelectedThemeId(e.target.value)}
                 disabled={loadingData || themes.length === 0}
-                className="onira-input w-full rounded-xl px-4 py-3 text-sm text-white"
+                className="onira-input w-full rounded-xl px-4 py-3 text-sm text-onira-offwhite"
               >
                 {themes.length === 0 ? (
                   <option value="">Nenhum tema cadastrado no banco</option>
                 ) : (
                   themes.map((theme) => (
-                    <option key={theme.id} value={theme.id} className="bg-[#121027] text-white">
+                    <option key={theme.id} value={theme.id} className="bg-onira-surface text-onira-offwhite">
                       {theme.name} — Luz: {theme.light_color}
                     </option>
                   ))
@@ -360,7 +360,7 @@ export const DreamScriptPage: React.FC = () => {
 
               {loadingData ? (
                 <div className="mt-4 flex items-center gap-2 text-xs text-slate-400">
-                  <Loader2 className="h-4 w-4 animate-spin text-violet-400" />
+                  <Loader2 className="h-4 w-4 animate-spin text-onira-lavender" />
                   Carregando temas de sonho do Supabase...
                 </div>
               ) : themes.length === 0 ? (
@@ -379,12 +379,12 @@ export const DreamScriptPage: React.FC = () => {
                         onClick={() => setSelectedThemeId(theme.id)}
                         className={`group flex cursor-pointer flex-col justify-between rounded-2xl border p-4 text-left transition-all duration-300 hover:-translate-y-1 ${
                           isSelected
-                            ? 'border-violet-400 bg-violet-500/15 shadow-[0_0_24px_rgba(139,92,246,0.28)]'
-                            : 'border-white/10 bg-white/[0.025] hover:border-violet-400/40 hover:bg-white/[0.05]'
+                            ? 'border-onira-lavender bg-onira-purple/20 shadow-[0_0_24px_rgba(118,101,232,0.32)]'
+                            : 'border-white/10 bg-white/[0.025] hover:border-onira-lavender/40 hover:bg-white/[0.05]'
                         }`}
                       >
                         <div className="flex items-start justify-between gap-2">
-                          <span className="font-semibold text-white">{theme.name}</span>
+                          <span className="font-semibold text-onira-offwhite">{theme.name}</span>
                           <span
                             className="mt-1 h-3 w-3 shrink-0 rounded-full"
                             style={{ backgroundColor: hex, boxShadow: `0 0 10px ${hex}` }}
@@ -398,7 +398,7 @@ export const DreamScriptPage: React.FC = () => {
                             <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: hex }} />
                             {theme.light_color}
                           </span>
-                          {isSelected && <span className="font-semibold text-violet-300">Selecionado</span>}
+                          {isSelected && <span className="font-semibold text-onira-lavender">Selecionado</span>}
                         </div>
                       </button>
                     );
@@ -436,7 +436,7 @@ export const DreamScriptPage: React.FC = () => {
                       onClick={() => setDurationInput(String(hrs))}
                       className={`cursor-pointer rounded-lg border px-2.5 py-1 text-xs font-medium transition-colors ${
                         Number(durationInput) === hrs
-                          ? 'border-violet-400 bg-violet-500/20 text-white'
+                          ? 'border-onira-lavender bg-onira-purple/25 text-onira-offwhite'
                           : 'border-white/10 bg-white/5 text-slate-400 hover:text-white'
                       }`}
                     >
@@ -458,12 +458,12 @@ export const DreamScriptPage: React.FC = () => {
                     required
                     value={wakeUpTime}
                     onChange={(e) => setWakeUpTime(e.target.value)}
-                    className="onira-input w-full rounded-xl py-3 pr-4 pl-10 text-sm text-white"
+                    className="onira-input w-full rounded-xl py-3 pr-4 pl-10 text-sm text-onira-offwhite"
                   />
                 </div>
                 <p className="mt-2 text-xs text-slate-400">
                   Sugestão para deitar:{' '}
-                  <span className="font-semibold text-violet-300">{suggestedBedtime}</span>
+                  <span className="font-semibold text-onira-lavender">{suggestedBedtime}</span>
                 </p>
               </div>
             </div>
@@ -491,16 +491,16 @@ export const DreamScriptPage: React.FC = () => {
           <div className="flex flex-col gap-6 lg:col-span-4">
             <div className="onira-card flex flex-1 flex-col items-center justify-between rounded-3xl p-6 text-center">
               <div className="w-full">
-                <p className="text-[11px] font-bold tracking-[0.2em] text-violet-400 uppercase">
+                <p className="text-[11px] font-bold tracking-[0.2em] text-onira-lavender uppercase">
                   Indução Luminosa ONIRA
                 </p>
-                <h3 className="mt-1 text-base font-bold text-white">Anel LED NeoPixel</h3>
+                <h3 className="mt-1 text-base font-bold text-onira-offwhite">Anel LED NeoPixel</h3>
               </div>
 
               <div className="my-6">
                 <NeoPixelRing
                   colorHex={activeHex}
-                  colorLabel={selectedTheme?.light_color || 'violeta'}
+                  colorLabel={selectedTheme?.light_color || 'roxo tecnológico'}
                   themeName={selectedTheme?.name || 'Selecione um tema'}
                   size="lg"
                 />
@@ -509,7 +509,7 @@ export const DreamScriptPage: React.FC = () => {
               <div className="w-full space-y-2.5 rounded-2xl border border-white/10 bg-black/25 p-4 text-left text-xs">
                 <div className="flex items-center justify-between">
                   <span className="text-slate-400">Duração escolhida</span>
-                  <span className="font-semibold text-white">
+                  <span className="font-semibold text-onira-offwhite">
                     {!Number.isNaN(parsedDuration) && parsedDuration >= 1
                       ? formatDuration(parsedDuration)
                       : 'Inválida (< 1h)'}
@@ -517,17 +517,17 @@ export const DreamScriptPage: React.FC = () => {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-slate-400">Deitar sugerido</span>
-                  <span className="font-semibold text-violet-300">{suggestedBedtime}</span>
+                  <span className="font-semibold text-onira-lavender">{suggestedBedtime}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-slate-400">Despertar suave</span>
-                  <span className="font-semibold text-sky-300">{wakeUpTime}</span>
+                  <span className="font-semibold text-onira-offwhite">{wakeUpTime}</span>
                 </div>
               </div>
 
               <Link
                 to="/dispositivo"
-                className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-sky-300 hover:text-sky-200"
+                className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-onira-lavender hover:text-onira-offwhite"
               >
                 Ajustar brilho e despertar do travesseiro →
               </Link>
@@ -540,24 +540,24 @@ export const DreamScriptPage: React.FC = () => {
         <section className="onira-card rounded-3xl p-5 sm:p-7">
           <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="text-[11px] font-bold tracking-[0.2em] text-violet-400 uppercase">
+              <p className="text-[11px] font-bold tracking-[0.2em] text-onira-lavender uppercase">
                 Suas noites no banco
               </p>
-              <h2 className="mt-1 text-lg font-bold text-white">Noites programadas</h2>
+              <h2 className="mt-1 text-lg font-bold text-onira-offwhite">Noites programadas</h2>
             </div>
-            <Link to="/historico" className="text-xs font-semibold text-violet-300 hover:text-violet-200">
+            <Link to="/historico" className="text-xs font-semibold text-onira-lavender hover:text-onira-offwhite">
               Ver histórico e relatórios →
             </Link>
           </div>
 
           {loadingData ? (
             <div className="flex items-center justify-center gap-2 py-10 text-sm text-slate-400">
-              <Loader2 className="h-4 w-4 animate-spin text-violet-400" />
+              <Loader2 className="h-4 w-4 animate-spin text-onira-lavender" />
               Carregando suas noites...
             </div>
           ) : nights.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-white/15 bg-white/[0.02] px-6 py-10 text-center">
-              <Moon className="mx-auto h-8 w-8 text-violet-400/70" />
+              <Moon className="mx-auto h-8 w-8 text-onira-lavender/70" />
               <p className="mt-3 text-sm font-semibold text-white">Nenhuma noite programada ainda</p>
               <p className="mt-1 text-xs text-slate-400">
                 Escolha um tema acima, defina duração e horário de despertar e clique em{' '}
@@ -597,18 +597,18 @@ export const DreamScriptPage: React.FC = () => {
                         </div>
                         <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400">
                           <span className="inline-flex items-center gap-1">
-                            <Clock className="h-3.5 w-3.5 text-violet-400" />
+                            <Clock className="h-3.5 w-3.5 text-onira-lavender" />
                             Duração:{' '}
                             <strong className="text-slate-200">
                               {formatDuration(Number(night.duration_hours))}
                             </strong>
                           </span>
                           <span className="inline-flex items-center gap-1">
-                            <Sunrise className="h-3.5 w-3.5 text-sky-400" />
+                            <Sunrise className="h-3.5 w-3.5 text-onira-purple" />
                             Despertar: <strong className="text-slate-200">{night.wake_up_time}</strong>
                           </span>
                           <span className="inline-flex items-center gap-1">
-                            <Sparkles className="h-3.5 w-3.5 text-purple-400" />
+                            <Sparkles className="h-3.5 w-3.5 text-onira-lavender" />
                             Luz: {night.theme_light_color}
                           </span>
                           <span className="inline-flex items-center gap-1">

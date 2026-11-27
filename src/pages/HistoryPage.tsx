@@ -172,7 +172,7 @@ export const HistoryPage: React.FC = () => {
   const statusBadge = (status: NightStatus) => {
     switch (status) {
       case 'Programada':
-        return 'border-violet-400/35 bg-violet-500/15 text-violet-200';
+        return 'border-onira-lavender/35 bg-onira-purple/20 text-onira-offwhite';
       case 'Concluída':
         return 'border-emerald-400/35 bg-emerald-500/15 text-emerald-200';
       case 'Cancelada':
@@ -209,20 +209,20 @@ export const HistoryPage: React.FC = () => {
       {/* KPIs reais */}
       <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
         <div className="onira-card onira-card-lift rounded-2xl p-4">
-          <p className="text-[11px] font-semibold tracking-wider text-violet-300 uppercase">Total registrado</p>
-          <p className="mt-2 text-2xl font-bold text-white">{analytics.total}</p>
+          <p className="text-[11px] font-semibold tracking-wider text-onira-lavender uppercase">Total registrado</p>
+          <p className="mt-2 text-2xl font-bold text-onira-offwhite">{analytics.total}</p>
           <p className="mt-0.5 text-xs text-slate-400">{analytics.completed} concluídas</p>
         </div>
         <div className="onira-card onira-card-lift rounded-2xl p-4">
-          <p className="text-[11px] font-semibold tracking-wider text-sky-300 uppercase">Duração média</p>
-          <p className="mt-2 text-2xl font-bold text-white">
+          <p className="text-[11px] font-semibold tracking-wider text-onira-lavender uppercase">Duração média</p>
+          <p className="mt-2 text-2xl font-bold text-onira-offwhite">
             {analytics.avgDuration > 0 ? formatDuration(analytics.avgDuration) : '--'}
           </p>
           <p className="mt-0.5 text-xs text-slate-400">média real planejada</p>
         </div>
         <div className="onira-card onira-card-lift rounded-2xl p-4">
           <p className="text-[11px] font-semibold tracking-wider text-amber-300 uppercase">Qualidade matinal</p>
-          <p className="mt-2 text-2xl font-bold text-white">
+          <p className="mt-2 text-2xl font-bold text-onira-offwhite">
             {analytics.avgRating > 0 ? `${analytics.avgRating.toFixed(1)}/5` : '--'}
           </p>
           <p className="mt-0.5 text-xs text-slate-400">
@@ -231,7 +231,7 @@ export const HistoryPage: React.FC = () => {
         </div>
         <div className="onira-card onira-card-lift rounded-2xl p-4">
           <p className="text-[11px] font-semibold tracking-wider text-emerald-300 uppercase">Tema favorito</p>
-          <p className="mt-2 truncate text-lg font-bold text-white">{analytics.favoriteTheme}</p>
+          <p className="mt-2 truncate text-lg font-bold text-onira-offwhite">{analytics.favoriteTheme}</p>
           <p className="mt-0.5 text-xs text-slate-400">mais escolhido por você</p>
         </div>
       </div>
@@ -241,8 +241,8 @@ export const HistoryPage: React.FC = () => {
         <section className="onira-card mb-6 rounded-3xl p-5 sm:p-6">
           <div className="mb-4 flex items-center justify-between">
             <div>
-              <p className="text-[11px] font-bold tracking-[0.2em] text-violet-400 uppercase">Evolução real</p>
-              <h2 className="mt-0.5 text-base font-bold text-white">Duração das últimas noites registradas</h2>
+              <p className="text-[11px] font-bold tracking-[0.2em] text-onira-lavender uppercase">Evolução real</p>
+              <h2 className="mt-0.5 text-base font-bold text-onira-offwhite">Duração das últimas noites registradas</h2>
             </div>
             <span className="text-xs text-slate-400">Horas por noite</span>
           </div>
@@ -259,7 +259,7 @@ export const HistoryPage: React.FC = () => {
                       className="w-full rounded-lg transition-all duration-500"
                       style={{
                         height: `${pct}%`,
-                        background: `linear-gradient(180deg, ${hex} 0%, rgba(139,92,246,0.45) 100%)`,
+                        background: `linear-gradient(180deg, ${hex} 0%, rgba(118,101,232,0.48) 100%)`,
                         boxShadow: `0 0 16px ${hex}44`,
                       }}
                       title={`${bar.theme_name} — ${bar.duration_hours}h`}
@@ -297,7 +297,7 @@ export const HistoryPage: React.FC = () => {
                 onClick={() => setStatusFilter(st)}
                 className={`cursor-pointer rounded-xl border px-3 py-1.5 text-xs font-medium transition-colors ${
                   statusFilter === st
-                    ? 'border-violet-400 bg-violet-500/20 text-white'
+                    ? 'border-onira-lavender bg-onira-purple/25 text-onira-offwhite'
                     : 'border-white/10 bg-white/5 text-slate-400 hover:text-white'
                 }`}
               >
@@ -309,12 +309,12 @@ export const HistoryPage: React.FC = () => {
 
         {loading ? (
           <div className="flex items-center justify-center gap-2 py-14 text-sm text-slate-400">
-            <Loader2 className="h-4 w-4 animate-spin text-violet-400" />
+            <Loader2 className="h-4 w-4 animate-spin text-onira-lavender" />
             Carregando histórico do banco...
           </div>
         ) : filteredNights.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-white/15 py-14 text-center">
-            <Moon className="mx-auto h-8 w-8 text-violet-400/70" />
+            <Moon className="mx-auto h-8 w-8 text-onira-lavender/70" />
             <p className="mt-3 text-sm font-semibold text-white">Nenhuma noite encontrada com este filtro</p>
             <p className="mt-1 text-xs text-slate-400">
               Vá até o Roteiro do Sonho para programar uma nova noite.
@@ -362,15 +362,15 @@ export const HistoryPage: React.FC = () => {
 
                         <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400">
                           <span className="inline-flex items-center gap-1">
-                            <Clock className="h-3.5 w-3.5 text-violet-400" />
+                            <Clock className="h-3.5 w-3.5 text-onira-lavender" />
                             {formatDuration(Number(night.duration_hours))}
                           </span>
                           <span className="inline-flex items-center gap-1">
-                            <Sunrise className="h-3.5 w-3.5 text-sky-400" />
+                            <Sunrise className="h-3.5 w-3.5 text-onira-purple" />
                             Despertar às <strong className="text-slate-200">{night.wake_up_time}</strong>
                           </span>
                           <span className="inline-flex items-center gap-1">
-                            <Sparkles className="h-3.5 w-3.5 text-purple-400" />
+                            <Sparkles className="h-3.5 w-3.5 text-onira-lavender" />
                             Luz: {night.theme_light_color}
                           </span>
                           <span className="inline-flex items-center gap-1">
@@ -387,7 +387,7 @@ export const HistoryPage: React.FC = () => {
 
                         {night.morning_notes && (
                           <p className="mt-2.5 flex items-start gap-1.5 rounded-xl border border-white/10 bg-black/25 px-3 py-2 text-xs text-slate-300">
-                            <MessageSquareText className="mt-0.5 h-3.5 w-3.5 shrink-0 text-violet-400" />
+                            <MessageSquareText className="mt-0.5 h-3.5 w-3.5 shrink-0 text-onira-lavender" />
                             <span>{night.morning_notes}</span>
                           </p>
                         )}
@@ -399,7 +399,7 @@ export const HistoryPage: React.FC = () => {
                         type="button"
                         disabled={busy}
                         onClick={() => openEvaluationModal(night)}
-                        className="inline-flex cursor-pointer items-center gap-1 rounded-lg border border-violet-400/30 bg-violet-500/15 px-2.5 py-1.5 text-xs font-medium text-violet-200 hover:bg-violet-500/25"
+                        className="inline-flex cursor-pointer items-center gap-1 rounded-lg border border-onira-lavender/35 bg-onira-purple/20 px-2.5 py-1.5 text-xs font-medium text-onira-offwhite hover:bg-onira-purple/35"
                       >
                         <Star className="h-3.5 w-3.5" />
                         {night.sleep_quality ? 'Editar avaliação' : 'Avaliar noite'}
@@ -459,7 +459,7 @@ export const HistoryPage: React.FC = () => {
           >
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-[11px] font-bold tracking-[0.2em] text-violet-400 uppercase">
+                <p className="text-[11px] font-bold tracking-[0.2em] text-onira-lavender uppercase">
                   Avaliação matinal
                 </p>
                 <h3 className="mt-1 text-lg font-bold text-white">{evaluatingNight.theme_name}</h3>

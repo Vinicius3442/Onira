@@ -44,22 +44,22 @@ export const AppShell: React.FC<AppShellProps> = ({ title, subtitle, headerActio
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
     `inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-2 text-[13px] font-medium transition-all ${
       isActive
-        ? 'border border-violet-400/30 bg-violet-500/20 text-white shadow-[0_0_20px_-6px_rgba(139,92,246,0.65)]'
-        : 'border border-transparent text-slate-400 hover:bg-white/[0.06] hover:text-slate-100'
+        ? 'border border-onira-lavender/35 bg-onira-purple/25 text-onira-offwhite shadow-[0_0_20px_-6px_rgba(118,101,232,0.7)]'
+        : 'border border-transparent text-slate-400 hover:bg-onira-offwhite/[0.06] hover:text-onira-offwhite'
     }`;
 
   const mobileLinkClass = ({ isActive }: { isActive: boolean }) =>
     `flex flex-col items-center gap-1 rounded-xl py-1.5 text-[10px] font-medium transition-colors ${
-      isActive ? 'text-violet-300' : 'text-slate-500'
+      isActive ? 'text-onira-lavender' : 'text-slate-400'
     }`;
 
   return (
-    <div className="relative min-h-screen pb-24 text-slate-100 md:pb-12">
+    <div className="relative min-h-screen pb-24 text-onira-offwhite md:pb-12">
       <ScrollProgressBar />
       <WaveBackdrop />
 
       {/* Top Navigation */}
-      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#080715]/85 backdrop-blur-xl">
+      <header className="sticky top-0 z-30 border-b border-onira-lavender/15 bg-onira-night/85 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6">
           {/* Esquerda: Marca */}
           <Link
@@ -96,9 +96,9 @@ export const AppShell: React.FC<AppShellProps> = ({ title, subtitle, headerActio
             {isAdmin && (
               <Link
                 to="/admin"
-                className="ml-1 inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xl border border-violet-400/35 bg-violet-500/15 px-3 py-2 text-[13px] font-semibold text-violet-200 transition-all hover:border-violet-400/60 hover:bg-violet-500/25 hover:text-white"
+                className="ml-1 inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xl border border-onira-lavender/35 bg-onira-purple/20 px-3 py-2 text-[13px] font-semibold text-onira-offwhite transition-all hover:border-onira-lavender/60 hover:bg-onira-purple/35 hover:text-white"
               >
-                <Wrench className="h-3.5 w-3.5 shrink-0 text-sky-300" />
+                <Wrench className="h-3.5 w-3.5 shrink-0 text-onira-lavender" />
                 Administrador
               </Link>
             )}
@@ -108,19 +108,19 @@ export const AppShell: React.FC<AppShellProps> = ({ title, subtitle, headerActio
           <div className="flex shrink-0 items-center gap-2.5 sm:gap-3">
             <Link
               to="/perfil"
-              className="group flex shrink-0 items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.03] py-1 pr-3 pl-1 transition-all hover:border-violet-400/40 hover:bg-white/[0.07]"
+              className="group flex shrink-0 items-center gap-2.5 rounded-full border border-onira-lavender/15 bg-onira-offwhite/[0.04] py-1 pr-3 pl-1 transition-all hover:border-onira-lavender/40 hover:bg-onira-offwhite/[0.08]"
               title="Abrir perfil e alterar foto"
             >
               <UserAvatar src={avatarUrl} name={displayName} size="sm" />
               <div className="hidden min-w-0 text-left sm:block">
                 <div className="flex items-center gap-1.5 whitespace-nowrap">
-                  <span className="max-w-[120px] truncate text-xs font-semibold text-white">
+                  <span className="max-w-[120px] truncate text-xs font-semibold text-onira-offwhite">
                     {displayName}
                   </span>
                   {isAdmin && <AdminTag />}
                 </div>
                 <p className="whitespace-nowrap text-[10px] text-slate-400">
-                  Dormir · <span className="text-violet-300">{profile?.habitual_sleep_time || '22:30'}</span>
+                  Dormir · <span className="text-onira-lavender">{profile?.habitual_sleep_time || '22:30'}</span>
                 </p>
               </div>
             </Link>
@@ -142,19 +142,19 @@ export const AppShell: React.FC<AppShellProps> = ({ title, subtitle, headerActio
       <main className="animate-page-enter mx-auto max-w-6xl px-4 pt-6 sm:px-6 sm:pt-8">
         <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div>
-            <p className="flex flex-wrap items-center gap-2 text-sm text-violet-300">
+            <p className="flex flex-wrap items-center gap-2 text-sm text-onira-lavender">
               <span>
-                {getGreetingByHour()}, <span className="font-semibold text-white">{displayName}</span>
+                {getGreetingByHour()}, <span className="font-semibold text-onira-offwhite">{displayName}</span>
               </span>
               {isAdmin && <AdminTag />}
             </p>
-            <h1 className="mt-1 text-2xl font-bold tracking-tight text-white sm:text-3xl">{title}</h1>
+            <h1 className="mt-1 text-2xl font-bold tracking-tight text-onira-offwhite sm:text-3xl">{title}</h1>
             {subtitle && <p className="mt-1 text-sm text-slate-400">{subtitle}</p>}
           </div>
 
           <div className="flex flex-wrap items-center gap-2.5">
-            <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-violet-400/25 bg-violet-500/10 px-3.5 py-1.5 text-xs font-medium text-violet-200">
-              <BedDouble className="h-3.5 w-3.5 text-violet-400" />
+            <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-onira-lavender/25 bg-onira-purple/15 px-3.5 py-1.5 text-xs font-medium text-onira-offwhite">
+              <BedDouble className="h-3.5 w-3.5 text-onira-lavender" />
               Horário habitual: {profile?.habitual_sleep_time || '22:30'}
             </span>
             {headerActions}
@@ -166,7 +166,7 @@ export const AppShell: React.FC<AppShellProps> = ({ title, subtitle, headerActio
 
       {/* Bottom Tab Bar (Mobile & Tablet) */}
       <nav
-        className="fixed inset-x-0 bottom-0 z-30 border-t border-white/10 bg-[#0D0B1F]/95 px-2 py-2 backdrop-blur-xl lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-30 border-t border-onira-lavender/15 bg-onira-night-deep/95 px-2 py-2 backdrop-blur-xl lg:hidden"
         aria-label="Navegação mobile"
       >
         <div className={`grid gap-1 ${isAdmin ? 'grid-cols-6' : 'grid-cols-5'}`}>
@@ -193,9 +193,9 @@ export const AppShell: React.FC<AppShellProps> = ({ title, subtitle, headerActio
           {isAdmin && (
             <Link
               to="/admin"
-              className="flex flex-col items-center gap-1 rounded-xl py-1.5 text-[10px] font-semibold text-violet-300"
+              className="flex flex-col items-center gap-1 rounded-xl py-1.5 text-[10px] font-semibold text-onira-lavender"
             >
-              <Wrench className="h-5 w-5 text-sky-300" />
+              <Wrench className="h-5 w-5 text-onira-lavender" />
               Admin
             </Link>
           )}

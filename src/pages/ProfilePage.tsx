@@ -153,7 +153,7 @@ export const ProfilePage: React.FC = () => {
                 type="button"
                 disabled={avatarBusy}
                 onClick={() => fileInputRef.current?.click()}
-                className="absolute right-0 bottom-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-[#121027] bg-violet-600 text-white shadow-lg transition-transform hover:scale-110 hover:bg-violet-500 disabled:opacity-60"
+                className="absolute right-0 bottom-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-onira-surface bg-onira-purple text-onira-offwhite shadow-lg transition-transform hover:scale-110 hover:bg-onira-purple-hover disabled:opacity-60"
                 title="Alterar foto de perfil"
                 aria-label="Alterar foto de perfil"
               >
@@ -183,7 +183,7 @@ export const ProfilePage: React.FC = () => {
                 type="button"
                 disabled={avatarBusy}
                 onClick={() => fileInputRef.current?.click()}
-                className="inline-flex cursor-pointer items-center gap-1.5 rounded-xl border border-violet-400/35 bg-violet-500/15 px-3 py-1.5 text-xs font-semibold text-violet-200 transition-colors hover:bg-violet-500/25 disabled:opacity-60"
+                className="inline-flex cursor-pointer items-center gap-1.5 rounded-xl border border-onira-lavender/35 bg-onira-purple/20 px-3 py-1.5 text-xs font-semibold text-onira-offwhite transition-colors hover:bg-onira-purple/35 disabled:opacity-60"
               >
                 <Upload className="h-3.5 w-3.5" />
                 {avatarUrl ? 'Trocar foto' : 'Adicionar foto'}
@@ -217,17 +217,17 @@ export const ProfilePage: React.FC = () => {
           <div className="mt-6 space-y-3 border-t border-white/10 pt-5 text-xs text-slate-300">
             <div className="flex items-center justify-between gap-2">
               <span className="inline-flex items-center gap-1.5 text-slate-400">
-                <Mail className="h-3.5 w-3.5 text-violet-400" />
+                <Mail className="h-3.5 w-3.5 text-onira-lavender" />
                 E-mail
               </span>
-              <span className="truncate font-medium text-white">{profile?.email || user?.email}</span>
+              <span className="truncate font-medium text-onira-offwhite">{profile?.email || user?.email}</span>
             </div>
             <div className="flex items-center justify-between gap-2">
               <span className="inline-flex items-center gap-1.5 text-slate-400">
-                <Clock className="h-3.5 w-3.5 text-sky-400" />
+                <Clock className="h-3.5 w-3.5 text-onira-purple" />
                 Dormir habitual
               </span>
-              <span className="font-semibold text-violet-300">{profile?.habitual_sleep_time || '22:30'}</span>
+              <span className="font-semibold text-onira-lavender">{profile?.habitual_sleep_time || '22:30'}</span>
             </div>
             <div className="flex items-center justify-between gap-2">
               <span className="inline-flex items-center gap-1.5 text-slate-400">
@@ -245,7 +245,7 @@ export const ProfilePage: React.FC = () => {
         <div className="space-y-6 lg:col-span-8">
           <form onSubmit={handleProfileSubmit} className="onira-card space-y-4 rounded-3xl p-6">
             <div>
-              <p className="text-[11px] font-bold tracking-[0.2em] text-violet-400 uppercase">Dados pessoais</p>
+              <p className="text-[11px] font-bold tracking-[0.2em] text-onira-lavender uppercase">Dados pessoais</p>
               <h3 className="mt-0.5 text-lg font-bold text-white">Informações e Rotina de Sono</h3>
             </div>
 
@@ -312,7 +312,7 @@ export const ProfilePage: React.FC = () => {
 
           <form onSubmit={handlePasswordSubmit} className="onira-card space-y-4 rounded-3xl p-6">
             <div>
-              <p className="text-[11px] font-bold tracking-[0.2em] text-sky-400 uppercase">Segurança</p>
+              <p className="text-[11px] font-bold tracking-[0.2em] text-onira-lavender uppercase">Segurança</p>
               <h3 className="mt-0.5 text-lg font-bold text-white">Alterar senha</h3>
             </div>
 
@@ -372,7 +372,7 @@ export const ProfilePage: React.FC = () => {
             <button
               type="submit"
               disabled={savingPassword}
-              className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-violet-400/35 bg-violet-500/15 px-5 py-2.5 text-sm font-semibold text-violet-200 transition-colors hover:bg-violet-500/25 disabled:opacity-60"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-onira-lavender/35 bg-onira-purple/20 px-5 py-2.5 text-sm font-semibold text-onira-offwhite transition-colors hover:bg-onira-purple/35 disabled:opacity-60"
             >
               {savingPassword && <Loader2 className="h-4 w-4 animate-spin" />}
               Atualizar senha

@@ -5,25 +5,25 @@ export interface ColorPreset {
 
 export const LIGHT_COLOR_PRESETS: ColorPreset[] = [
   { label: 'azul claro', hex: '#38BDF8' },
-  { label: 'lilás', hex: '#C084FC' },
+  { label: 'lavanda', hex: '#A78BFA' },
   { label: 'dourado suave', hex: '#F59E0B' },
   { label: 'verde esmeralda', hex: '#10B981' },
   { label: 'azul índigo', hex: '#6366F1' },
-  { label: 'roxo profundo', hex: '#8B5CF6' },
+  { label: 'roxo tecnológico', hex: '#7665E8' },
   { label: 'rosa aurora', hex: '#F472B6' },
   { label: 'âmbar quente', hex: '#FB923C' },
   { label: 'ciano sereno', hex: '#22D3EE' },
-  { label: 'branco lunar', hex: '#E2E8F0' },
+  { label: 'branco lunar', hex: '#F5F3FA' },
 ];
 
 const COLOR_DICTIONARY: Array<{ keywords: string[]; hex: string }> = [
   { keywords: ['azul claro', 'azul-claro', 'celeste', 'sky', 'ceu', 'céu'], hex: '#38BDF8' },
-  { keywords: ['azul escuro', 'azul marinho', 'marinho', 'navy'], hex: '#1D4ED8' },
+  { keywords: ['azul noturno', 'azul escuro', 'azul marinho', 'marinho', 'navy'], hex: '#10152F' },
   { keywords: ['indigo', 'índigo'], hex: '#6366F1' },
   { keywords: ['azul', 'blue'], hex: '#3B82F6' },
-  { keywords: ['lilas', 'lilás', 'lavanda', 'lavender'], hex: '#C084FC' },
-  { keywords: ['violeta', 'violet'], hex: '#8B5CF6' },
-  { keywords: ['roxo', 'purple', 'púrpura', 'purpura'], hex: '#9333EA' },
+  { keywords: ['lilas', 'lilás', 'lavanda', 'lavender'], hex: '#A78BFA' },
+  { keywords: ['violeta', 'violet'], hex: '#7665E8' },
+  { keywords: ['roxo', 'purple', 'púrpura', 'purpura'], hex: '#7665E8' },
   { keywords: ['dourado', 'ouro', 'gold'], hex: '#F59E0B' },
   { keywords: ['ambar', 'âmbar', 'laranja', 'orange', 'pôr do sol', 'entardecer'], hex: '#FB923C' },
   { keywords: ['amarelo', 'yellow', 'sol'], hex: '#FACC15' },
@@ -33,10 +33,10 @@ const COLOR_DICTIONARY: Array<{ keywords: string[]; hex: string }> = [
   { keywords: ['ciano', 'cyan', 'turquesa', 'aqua'], hex: '#22D3EE' },
   { keywords: ['rosa', 'pink', 'magenta', 'aurora'], hex: '#F472B6' },
   { keywords: ['vermelho', 'red', 'coral', 'rubi'], hex: '#F43F5E' },
-  { keywords: ['branco', 'white', 'lunar', 'prata', 'pérola'], hex: '#E2E8F0' },
+  { keywords: ['branco', 'white', 'off-white', 'lunar', 'prata', 'pérola'], hex: '#F5F3FA' },
 ];
 
-export function resolveColorHex(colorName: string, fallback = '#8B5CF6'): string {
+export function resolveColorHex(colorName: string, fallback = '#7665E8'): string {
   const normalized = colorName.trim().toLowerCase();
   if (!normalized) return fallback;
 

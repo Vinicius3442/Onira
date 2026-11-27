@@ -112,7 +112,7 @@ export const ThemesLibraryPage: React.FC = () => {
               onClick={() => setSelectedColor('all')}
               className={`cursor-pointer rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
                 selectedColor === 'all'
-                  ? 'border-violet-400 bg-violet-500/20 text-white'
+                  ? 'border-onira-lavender bg-onira-purple/25 text-onira-offwhite'
                   : 'border-white/10 bg-white/5 text-slate-400 hover:text-white'
               }`}
             >
@@ -125,7 +125,7 @@ export const ThemesLibraryPage: React.FC = () => {
                 onClick={() => setSelectedColor(c.label)}
                 className={`inline-flex cursor-pointer items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
                   selectedColor === c.label
-                    ? 'border-violet-400 bg-violet-500/20 text-white'
+                    ? 'border-onira-lavender bg-onira-purple/25 text-onira-offwhite'
                     : 'border-white/10 bg-white/5 text-slate-300 hover:bg-white/10'
                 }`}
               >
@@ -140,12 +140,12 @@ export const ThemesLibraryPage: React.FC = () => {
       {/* Grade de Temas */}
       {loading ? (
         <div className="flex items-center justify-center gap-2 py-20 text-sm text-slate-400">
-          <Loader2 className="h-5 w-5 animate-spin text-violet-400" />
+          <Loader2 className="h-5 w-5 animate-spin text-onira-lavender" />
           Carregando temas do Supabase...
         </div>
       ) : filteredThemes.length === 0 ? (
         <div className="onira-card rounded-3xl px-6 py-16 text-center">
-          <Sparkles className="mx-auto h-9 w-9 text-violet-400/70" />
+          <Sparkles className="mx-auto h-9 w-9 text-onira-lavender/70" />
           <p className="mt-3 text-base font-semibold text-white">Nenhum tema encontrado</p>
           <p className="mt-1 text-xs text-slate-400">
             Ajuste os filtros de busca ou aguarde novos temas serem adicionados pelo administrador.

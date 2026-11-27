@@ -52,7 +52,7 @@ const EMPTY_FORM: ThemeFormState = {
   name: '',
   description: '',
   light_color: '',
-  light_hex: '#38BDF8',
+  light_hex: '#7665E8',
 };
 
 export const AdminDashboardPage: React.FC = () => {
@@ -297,16 +297,16 @@ export const AdminDashboardPage: React.FC = () => {
   ];
 
   const renderThemesTable = (items: DreamTheme[]) => (
-    <div className="rounded-2xl border border-slate-200/90 bg-white shadow-sm">
-      <div className="flex flex-col justify-between gap-3 border-b border-slate-100 p-5 sm:flex-row sm:items-center">
+    <div className="rounded-2xl border border-onira-lavender/20 bg-white shadow-sm">
+      <div className="flex flex-col justify-between gap-3 border-b border-onira-offwhite p-5 sm:flex-row sm:items-center">
         <div>
-          <p className="text-[11px] font-bold tracking-[0.16em] text-violet-600 uppercase">Gerenciamento</p>
-          <h2 className="mt-0.5 text-lg font-bold text-slate-900">Temas de Sonho</h2>
+          <p className="text-[11px] font-bold tracking-[0.16em] text-onira-purple uppercase">Gerenciamento</p>
+          <h2 className="mt-0.5 text-lg font-bold text-onira-night">Temas de Sonho</h2>
         </div>
         <button
           type="button"
           onClick={openCreateModal}
-          className="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-violet-600 px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-violet-700"
+          className="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-onira-purple px-4 py-2.5 text-xs font-semibold text-onira-offwhite shadow-sm transition-colors hover:bg-onira-purple-hover"
         >
           <Plus className="h-4 w-4" />
           Novo tema
@@ -315,7 +315,7 @@ export const AdminDashboardPage: React.FC = () => {
 
       {loading ? (
         <div className="flex items-center justify-center gap-2 py-12 text-sm text-slate-500">
-          <Loader2 className="h-4 w-4 animate-spin text-violet-600" />
+          <Loader2 className="h-4 w-4 animate-spin text-onira-purple" />
           Carregando temas do banco...
         </div>
       ) : items.length === 0 ? (
@@ -326,7 +326,7 @@ export const AdminDashboardPage: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px] border-collapse text-left text-sm">
             <thead>
-              <tr className="border-b border-slate-100 bg-slate-50/70 text-[11px] font-semibold tracking-wider text-slate-500 uppercase">
+              <tr className="border-b border-onira-offwhite bg-onira-offwhite/80 text-[11px] font-semibold tracking-wider text-slate-500 uppercase">
                 <th className="px-5 py-3">Tema</th>
                 <th className="px-5 py-3">Descrição</th>
                 <th className="px-5 py-3">Cor da luz</th>
@@ -334,11 +334,11 @@ export const AdminDashboardPage: React.FC = () => {
                 <th className="px-5 py-3 text-right">Ações</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-onira-offwhite">
               {items.map((theme) => {
                 const hex = theme.light_hex || resolveColorHex(theme.light_color);
                 return (
-                  <tr key={theme.id} className="transition-colors hover:bg-slate-50/80">
+                  <tr key={theme.id} className="transition-colors hover:bg-onira-offwhite/60">
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-3">
                         <span
@@ -350,12 +350,12 @@ export const AdminDashboardPage: React.FC = () => {
                             style={{ backgroundColor: hex, boxShadow: `0 0 8px ${hex}` }}
                           />
                         </span>
-                        <span className="font-semibold text-slate-900">{theme.name}</span>
+                        <span className="font-semibold text-onira-night">{theme.name}</span>
                       </div>
                     </td>
                     <td className="max-w-md px-5 py-4 text-slate-600">{theme.description}</td>
                     <td className="px-5 py-4">
-                      <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700">
+                      <span className="inline-flex items-center gap-2 rounded-full border border-onira-lavender/25 bg-onira-offwhite px-3 py-1 text-xs font-medium text-onira-night">
                         <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: hex }} />
                         {theme.light_color}
                       </span>
@@ -368,7 +368,7 @@ export const AdminDashboardPage: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => openEditModal(theme)}
-                          className="inline-flex cursor-pointer items-center gap-1 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:border-violet-300 hover:bg-violet-50 hover:text-violet-700"
+                          className="inline-flex cursor-pointer items-center gap-1 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:border-onira-lavender hover:bg-onira-offwhite hover:text-onira-purple"
                         >
                           <Pencil className="h-3.5 w-3.5" />
                           Editar
@@ -394,18 +394,18 @@ export const AdminDashboardPage: React.FC = () => {
   );
 
   return (
-    <div className="flex min-h-screen bg-[#F6F7FB] text-slate-900">
+    <div className="flex min-h-screen bg-onira-offwhite text-onira-night">
       {/* Backdrop Mobile Sidebar */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs lg:hidden"
+          className="fixed inset-0 z-40 bg-onira-night/60 backdrop-blur-xs lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Left Dark Sidebar travada em 100% da altura da tela (sticky h-screen no desktop) */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex h-screen w-64 shrink-0 flex-col justify-between bg-[#110E22] px-4 py-5 text-slate-200 transition-transform duration-200 lg:sticky lg:top-0 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 flex h-screen w-64 shrink-0 flex-col justify-between bg-onira-night px-4 py-5 text-onira-offwhite transition-transform duration-200 lg:sticky lg:top-0 lg:translate-x-0 ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -422,8 +422,8 @@ export const AdminDashboardPage: React.FC = () => {
             </button>
           </div>
 
-          <div className="mt-7 border-t border-white/10 pt-5 px-2">
-            <p className="text-[10px] font-bold tracking-[0.2em] text-violet-400 uppercase">Admin Console</p>
+          <div className="mt-7 border-t border-onira-lavender/15 pt-5 px-2">
+            <p className="text-[10px] font-bold tracking-[0.2em] text-onira-lavender uppercase">Admin Console</p>
             <p className="mt-0.5 text-xs text-slate-400">Gestão inteligente do sono</p>
           </div>
 
@@ -440,18 +440,18 @@ export const AdminDashboardPage: React.FC = () => {
                   }}
                   className={`flex w-full cursor-pointer items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-medium transition-colors ${
                     active
-                      ? 'border border-violet-500/40 bg-violet-600/20 text-white'
-                      : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
+                      ? 'border border-onira-lavender/40 bg-onira-purple/25 text-onira-offwhite'
+                      : 'text-slate-400 hover:bg-white/5 hover:text-onira-offwhite'
                   }`}
                 >
                   <span className="flex items-center gap-3">
-                    <span className={active ? 'text-violet-300' : 'text-slate-500'}>{item.icon}</span>
+                    <span className={active ? 'text-onira-lavender' : 'text-slate-400'}>{item.icon}</span>
                     {item.label}
                   </span>
                   {typeof item.badge === 'number' && (
                     <span
                       className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${
-                        active ? 'bg-violet-500 text-white' : 'bg-white/10 text-slate-300'
+                        active ? 'bg-onira-purple text-onira-offwhite' : 'bg-white/10 text-slate-300'
                       }`}
                     >
                       {item.badge}
@@ -462,10 +462,10 @@ export const AdminDashboardPage: React.FC = () => {
             })}
           </nav>
 
-          <div className="mt-6 border-t border-white/10 pt-5">
+          <div className="mt-6 border-t border-onira-lavender/15 pt-5">
             <Link
               to="/roteiro-do-sonho"
-              className="flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-xs font-medium text-sky-300 transition-colors hover:bg-white/5 hover:text-sky-200"
+              className="flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-xs font-medium text-onira-lavender transition-colors hover:bg-white/5 hover:text-onira-offwhite"
             >
               <ArrowLeft className="h-4 w-4" />
               Ir para Roteiro do Sonho
@@ -474,16 +474,16 @@ export const AdminDashboardPage: React.FC = () => {
         </div>
 
         {/* Rodapé Admin fixo na base da sidebar */}
-        <div className="mt-3 shrink-0 border-t border-white/10 pt-3.5">
-          <div className="flex items-center justify-between gap-2 rounded-xl bg-white/[0.04] p-3">
+        <div className="mt-3 shrink-0 border-t border-onira-lavender/15 pt-3.5">
+          <div className="flex items-center justify-between gap-2 rounded-xl bg-onira-offwhite/[0.05] p-3">
             <Link to="/perfil" className="flex min-w-0 items-center gap-2.5 hover:opacity-90" title="Alterar foto no perfil">
               <UserAvatar src={avatarUrl} name={profile?.full_name} size="sm" />
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <p className="truncate text-xs font-semibold text-white">{profile?.full_name || 'Administrador'}</p>
+                  <p className="truncate text-xs font-semibold text-onira-offwhite">{profile?.full_name || 'Administrador'}</p>
                   <AdminTag compact />
                 </div>
-                <p className="truncate text-[10px] text-violet-300">Super administrador</p>
+                <p className="truncate text-[10px] text-onira-lavender">Super administrador</p>
               </div>
             </Link>
             <button
@@ -502,22 +502,22 @@ export const AdminDashboardPage: React.FC = () => {
       {/* Main Content Area */}
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Top Header */}
-        <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/90 px-4 py-4 backdrop-blur-md sm:px-8">
+        <header className="sticky top-0 z-20 border-b border-onira-lavender/20 bg-white/90 px-4 py-4 backdrop-blur-md sm:px-8">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <button
                 type="button"
                 onClick={() => setSidebarOpen(true)}
-                className="rounded-xl border border-slate-200 p-2 text-slate-600 hover:bg-slate-50 lg:hidden"
+                className="rounded-xl border border-slate-200 p-2 text-slate-600 hover:bg-onira-offwhite lg:hidden"
                 aria-label="Abrir menu administrativo"
               >
                 <Menu className="h-5 w-5" />
               </button>
               <div>
-                <p className="text-[11px] font-bold tracking-[0.16em] text-violet-600 uppercase">
+                <p className="text-[11px] font-bold tracking-[0.16em] text-onira-purple uppercase">
                   Painel Administrativo
                 </p>
-                <h1 className="text-xl font-extrabold text-slate-900 sm:text-2xl">
+                <h1 className="text-xl font-extrabold text-onira-night sm:text-2xl">
                   {section === 'overview'
                     ? 'Visão geral'
                     : section === 'themes'
@@ -539,7 +539,7 @@ export const AdminDashboardPage: React.FC = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Buscar no painel..."
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2 pr-3 pl-9 text-sm text-slate-800 placeholder:text-slate-400 focus:border-violet-500 focus:bg-white focus:outline-none"
+                  className="w-full rounded-xl border border-onira-lavender/25 bg-onira-offwhite/70 py-2 pr-3 pl-9 text-sm text-onira-night placeholder:text-slate-400 focus:border-onira-purple focus:bg-white focus:outline-none"
                 />
               </div>
 
@@ -547,7 +547,7 @@ export const AdminDashboardPage: React.FC = () => {
                 type="button"
                 onClick={() => void loadDashboardData(true)}
                 disabled={refreshing}
-                className="cursor-pointer rounded-xl border border-slate-200 bg-white p-2.5 text-slate-600 hover:bg-slate-50"
+                className="cursor-pointer rounded-xl border border-onira-lavender/25 bg-white p-2.5 text-slate-600 hover:bg-onira-offwhite"
                 title="Atualizar dados"
               >
                 <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
@@ -556,7 +556,7 @@ export const AdminDashboardPage: React.FC = () => {
               <button
                 type="button"
                 onClick={openCreateModal}
-                className="inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-xl bg-violet-600 px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-violet-700"
+                className="inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-xl bg-onira-purple px-4 py-2.5 text-xs font-semibold text-onira-offwhite shadow-sm transition-colors hover:bg-onira-purple-hover"
               >
                 <Plus className="h-4 w-4" />
                 <span>Novo tema</span>
@@ -598,40 +598,40 @@ export const AdminDashboardPage: React.FC = () => {
           {section === 'overview' && (
             <>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                <div className="admin-card rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm">
+                <div className="admin-card rounded-2xl border border-onira-lavender/20 bg-white p-5 shadow-sm">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium text-slate-500">Usuários cadastrados</span>
-                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-onira-offwhite text-onira-purple">
                       <Users className="h-4 w-4" />
                     </span>
                   </div>
-                  <p className="mt-3 text-3xl font-extrabold text-slate-900">
+                  <p className="mt-3 text-3xl font-extrabold text-onira-night">
                     <AnimatedCounter value={profiles.length} duration={650} />
                   </p>
                   <p className="mt-1 text-xs text-emerald-600">Sincronizado com Supabase Auth</p>
                 </div>
 
-                <div className="admin-card rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm">
+                <div className="admin-card rounded-2xl border border-onira-lavender/20 bg-white p-5 shadow-sm">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium text-slate-500">Temas de sonho</span>
-                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-50 text-sky-600">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-onira-offwhite text-onira-lavender">
                       <Sparkles className="h-4 w-4" />
                     </span>
                   </div>
-                  <p className="mt-3 text-3xl font-extrabold text-slate-900">
+                  <p className="mt-3 text-3xl font-extrabold text-onira-night">
                     <AnimatedCounter value={themes.length} duration={650} />
                   </p>
                   <p className="mt-1 text-xs text-slate-500">Ativos no Roteiro do Sonho</p>
                 </div>
 
-                <div className="admin-card rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm">
+                <div className="admin-card rounded-2xl border border-onira-lavender/20 bg-white p-5 shadow-sm">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium text-slate-500">Noites programadas</span>
                     <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-rose-50 text-rose-600">
                       <Moon className="h-4 w-4" />
                     </span>
                   </div>
-                  <p className="mt-3 text-3xl font-extrabold text-slate-900">
+                  <p className="mt-3 text-3xl font-extrabold text-onira-night">
                     <AnimatedCounter value={nights.length} duration={750} />
                   </p>
                   <p className="mt-1 text-xs text-slate-500">
@@ -643,14 +643,14 @@ export const AdminDashboardPage: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="admin-card rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm">
+                <div className="admin-card rounded-2xl border border-onira-lavender/20 bg-white p-5 shadow-sm">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium text-slate-500">Média de sono</span>
                     <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
                       <Clock className="h-4 w-4" />
                     </span>
                   </div>
-                  <p className="mt-3 text-3xl font-extrabold text-slate-900">
+                  <p className="mt-3 text-3xl font-extrabold text-onira-night">
                     <AnimatedDuration hours={avgSleepHours} duration={750} />
                   </p>
                   <p className="mt-1 text-xs text-slate-500">Média real das noites</p>
@@ -659,25 +659,25 @@ export const AdminDashboardPage: React.FC = () => {
 
               {/* Gráficos reais */}
               <div className="grid grid-cols-1 gap-5 xl:grid-cols-12">
-                <div className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm xl:col-span-8">
+                <div className="rounded-2xl border border-onira-lavender/20 bg-white p-6 shadow-sm xl:col-span-8">
                   <div className="mb-4 flex items-center justify-between">
                     <div>
                       <p className="text-[11px] font-bold tracking-[0.16em] text-slate-400 uppercase">Atividade</p>
-                      <h2 className="mt-0.5 text-base font-bold text-slate-900">
+                      <h2 className="mt-0.5 text-base font-bold text-onira-night">
                         Uso da plataforma (últimos 7 dias)
                       </h2>
                     </div>
-                    <span className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600">
+                    <span className="rounded-lg border border-onira-lavender/25 bg-onira-offwhite px-3 py-1 text-xs font-medium text-onira-night">
                       Dados reais
                     </span>
                   </div>
                   <AdminActivityChart nights={nights} />
                 </div>
 
-                <div className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm xl:col-span-4">
+                <div className="rounded-2xl border border-onira-lavender/20 bg-white p-6 shadow-sm xl:col-span-4">
                   <div className="mb-4">
                     <p className="text-[11px] font-bold tracking-[0.16em] text-slate-400 uppercase">Catálogo</p>
-                    <h2 className="mt-0.5 text-base font-bold text-slate-900">Distribuição por tema</h2>
+                    <h2 className="mt-0.5 text-base font-bold text-onira-night">Distribuição por tema</h2>
                   </div>
                   <AdminThemeDonutChart themes={themes} nights={nights} />
                 </div>
@@ -693,33 +693,33 @@ export const AdminDashboardPage: React.FC = () => {
 
           {/* SEÇÃO DEDICADA: USUÁRIOS REAIS */}
           {section === 'users' && (
-            <div className="rounded-2xl border border-slate-200/90 bg-white shadow-sm">
-              <div className="border-b border-slate-100 p-5">
-                <p className="text-[11px] font-bold tracking-[0.16em] text-violet-600 uppercase">Base de contas</p>
-                <h2 className="mt-0.5 text-lg font-bold text-slate-900">
+            <div className="rounded-2xl border border-onira-lavender/20 bg-white shadow-sm">
+              <div className="border-b border-onira-offwhite p-5">
+                <p className="text-[11px] font-bold tracking-[0.16em] text-onira-purple uppercase">Base de contas</p>
+                <h2 className="mt-0.5 text-lg font-bold text-onira-night">
                   Usuários cadastrados ({filteredProfiles.length})
                 </h2>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[640px] border-collapse text-left text-sm">
                   <thead>
-                    <tr className="border-b border-slate-100 bg-slate-50/70 text-[11px] font-semibold tracking-wider text-slate-500 uppercase">
+                    <tr className="border-b border-onira-offwhite bg-onira-offwhite/80 text-[11px] font-semibold tracking-wider text-slate-500 uppercase">
                       <th className="px-5 py-3">Usuário</th>
                       <th className="px-5 py-3">Horário habitual</th>
                       <th className="px-5 py-3">Perfil</th>
                       <th className="px-5 py-3">Cadastro</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-onira-offwhite">
                     {filteredProfiles.map((p) => (
-                      <tr key={p.id} className="hover:bg-slate-50/70">
+                      <tr key={p.id} className="hover:bg-onira-offwhite/60">
                         <td className="px-5 py-3.5">
                           <div className="flex items-center gap-3">
-                            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-100 text-xs font-bold text-violet-700">
+                            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-onira-offwhite text-xs font-bold text-onira-purple">
                               {getInitials(p.full_name)}
                             </span>
                             <div>
-                              <p className="font-semibold text-slate-900">{p.full_name}</p>
+                              <p className="font-semibold text-onira-night">{p.full_name}</p>
                               <p className="text-xs text-slate-500">{p.email}</p>
                             </div>
                           </div>
@@ -729,7 +729,7 @@ export const AdminDashboardPage: React.FC = () => {
                           <span
                             className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold ${
                               p.role === 'admin'
-                                ? 'bg-violet-100 text-violet-700'
+                                ? 'bg-onira-purple/15 text-onira-purple'
                                 : 'bg-emerald-50 text-emerald-700'
                             }`}
                           >
@@ -749,10 +749,10 @@ export const AdminDashboardPage: React.FC = () => {
 
           {/* SEÇÃO DEDICADA: DISPOSITIVOS VINCULADOS */}
           {section === 'devices' && (
-            <div className="rounded-2xl border border-slate-200/90 bg-white shadow-sm">
-              <div className="border-b border-slate-100 p-5">
-                <p className="text-[11px] font-bold tracking-[0.16em] text-violet-600 uppercase">Hardware ONIRA</p>
-                <h2 className="mt-0.5 text-lg font-bold text-slate-900">
+            <div className="rounded-2xl border border-onira-lavender/20 bg-white shadow-sm">
+              <div className="border-b border-onira-offwhite p-5">
+                <p className="text-[11px] font-bold tracking-[0.16em] text-onira-purple uppercase">Hardware ONIRA</p>
+                <h2 className="mt-0.5 text-lg font-bold text-onira-night">
                   Travesseiros configurados ({devices.length})
                 </h2>
               </div>
@@ -764,7 +764,7 @@ export const AdminDashboardPage: React.FC = () => {
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[680px] border-collapse text-left text-sm">
                     <thead>
-                      <tr className="border-b border-slate-100 bg-slate-50/70 text-[11px] font-semibold tracking-wider text-slate-500 uppercase">
+                      <tr className="border-b border-onira-offwhite bg-onira-offwhite/80 text-[11px] font-semibold tracking-wider text-slate-500 uppercase">
                         <th className="px-5 py-3">Usuário</th>
                         <th className="px-5 py-3">Dispositivo / Serial</th>
                         <th className="px-5 py-3">NeoPixel / Buzzer</th>
@@ -772,18 +772,18 @@ export const AdminDashboardPage: React.FC = () => {
                         <th className="px-5 py-3">LDR</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-onira-offwhite">
                       {devices.map((dev) => (
-                        <tr key={dev.user_id} className="hover:bg-slate-50/70">
+                        <tr key={dev.user_id} className="hover:bg-onira-offwhite/60">
                           <td className="px-5 py-3.5">
-                            <p className="font-semibold text-slate-900">
+                            <p className="font-semibold text-onira-night">
                               {dev.profiles?.full_name || 'Usuário'}
                             </p>
                             <p className="text-xs text-slate-500">{dev.profiles?.email || '—'}</p>
                           </td>
                           <td className="px-5 py-3.5">
-                            <p className="font-semibold text-slate-800">{dev.device_name}</p>
-                            <p className="font-mono text-xs text-violet-600">{dev.device_code}</p>
+                            <p className="font-semibold text-onira-night">{dev.device_name}</p>
+                            <p className="font-mono text-xs text-onira-purple">{dev.device_code}</p>
                           </td>
                           <td className="px-5 py-3.5 text-slate-700">
                             LED {dev.neopixel_brightness}% · Buzzer {dev.buzzer_volume}%
@@ -806,10 +806,10 @@ export const AdminDashboardPage: React.FC = () => {
 
           {/* SEÇÃO DEDICADA: NOITES PROGRAMADAS */}
           {section === 'nights' && (
-            <div className="rounded-2xl border border-slate-200/90 bg-white shadow-sm">
-              <div className="border-b border-slate-100 p-5">
-                <p className="text-[11px] font-bold tracking-[0.16em] text-violet-600 uppercase">Roteiros</p>
-                <h2 className="mt-0.5 text-lg font-bold text-slate-900">
+            <div className="rounded-2xl border border-onira-lavender/20 bg-white shadow-sm">
+              <div className="border-b border-onira-offwhite p-5">
+                <p className="text-[11px] font-bold tracking-[0.16em] text-onira-purple uppercase">Roteiros</p>
+                <h2 className="mt-0.5 text-lg font-bold text-onira-night">
                   Noites programadas ({nights.length})
                 </h2>
               </div>
@@ -821,7 +821,7 @@ export const AdminDashboardPage: React.FC = () => {
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[680px] border-collapse text-left text-sm">
                     <thead>
-                      <tr className="border-b border-slate-100 bg-slate-50/70 text-[11px] font-semibold tracking-wider text-slate-500 uppercase">
+                      <tr className="border-b border-onira-offwhite bg-onira-offwhite/80 text-[11px] font-semibold tracking-wider text-slate-500 uppercase">
                         <th className="px-5 py-3">Usuário</th>
                         <th className="px-5 py-3">Tema</th>
                         <th className="px-5 py-3">Duração</th>
@@ -830,19 +830,19 @@ export const AdminDashboardPage: React.FC = () => {
                         <th className="px-5 py-3">Data</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-onira-offwhite">
                       {nights.map((night) => {
                         const hex = night.theme_light_hex || resolveColorHex(night.theme_light_color);
                         return (
-                          <tr key={night.id} className="hover:bg-slate-50/70">
+                          <tr key={night.id} className="hover:bg-onira-offwhite/60">
                             <td className="px-5 py-3.5">
-                              <p className="font-semibold text-slate-900">
+                              <p className="font-semibold text-onira-night">
                                 {night.profiles?.full_name || 'Usuário'}
                               </p>
                               <p className="text-xs text-slate-500">{night.profiles?.email || '—'}</p>
                             </td>
                             <td className="px-5 py-3.5">
-                              <span className="inline-flex items-center gap-2 font-medium text-slate-800">
+                              <span className="inline-flex items-center gap-2 font-medium text-onira-night">
                                 <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: hex }} />
                                 {night.theme_name}
                               </span>
@@ -850,9 +850,9 @@ export const AdminDashboardPage: React.FC = () => {
                             <td className="px-5 py-3.5 text-slate-700">
                               {formatDuration(Number(night.duration_hours))}
                             </td>
-                            <td className="px-5 py-3.5 font-medium text-slate-800">{night.wake_up_time}</td>
+                            <td className="px-5 py-3.5 font-medium text-onira-night">{night.wake_up_time}</td>
                             <td className="px-5 py-3.5">
-                              <span className="inline-flex rounded-full bg-violet-50 px-2.5 py-0.5 text-xs font-semibold text-violet-700">
+                              <span className="inline-flex rounded-full bg-onira-offwhite px-2.5 py-0.5 text-xs font-semibold text-onira-purple">
                                 {night.status}
                               </span>
                             </td>
@@ -874,25 +874,25 @@ export const AdminDashboardPage: React.FC = () => {
       {/* MODAL: Cadastrar / Editar Tema de Sonho (RF04 / CT-04) */}
       {modalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 p-4 backdrop-blur-xs"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-onira-night/65 p-4 backdrop-blur-xs"
           role="dialog"
           aria-modal="true"
           aria-labelledby="theme-modal-title"
         >
-          <div className="animate-modal-pop w-full max-w-lg rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl sm:p-7">
+          <div className="animate-modal-pop w-full max-w-lg rounded-3xl border border-onira-lavender/25 bg-white p-6 shadow-2xl sm:p-7">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-[11px] font-bold tracking-[0.16em] text-violet-600 uppercase">
+                <p className="text-[11px] font-bold tracking-[0.16em] text-onira-purple uppercase">
                   Catálogo de Sonhos
                 </p>
-                <h2 id="theme-modal-title" className="mt-1 text-xl font-bold text-slate-900">
+                <h2 id="theme-modal-title" className="mt-1 text-xl font-bold text-onira-night">
                   {editingTheme ? 'Editar tema de sonho' : 'Cadastrar novo tema de sonho'}
                 </h2>
               </div>
               <button
                 type="button"
                 onClick={() => setModalOpen(false)}
-                className="cursor-pointer rounded-xl p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700"
+                className="cursor-pointer rounded-xl p-1.5 text-slate-400 hover:bg-onira-offwhite hover:text-onira-night"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -920,7 +920,7 @@ export const AdminDashboardPage: React.FC = () => {
                   value={formState.name}
                   onChange={(e) => setFormState((prev) => ({ ...prev, name: e.target.value }))}
                   placeholder="Ex.: Voo sobre montanhas"
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 focus:border-violet-500 focus:bg-white focus:outline-none"
+                  className="w-full rounded-xl border border-onira-lavender/25 bg-onira-offwhite/70 px-3.5 py-2.5 text-sm text-onira-night focus:border-onira-purple focus:bg-white focus:outline-none"
                 />
               </div>
 
@@ -935,7 +935,7 @@ export const AdminDashboardPage: React.FC = () => {
                   value={formState.description}
                   onChange={(e) => setFormState((prev) => ({ ...prev, description: e.target.value }))}
                   placeholder="Ex.: planar ao amanhecer"
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 focus:border-violet-500 focus:bg-white focus:outline-none"
+                  className="w-full rounded-xl border border-onira-lavender/25 bg-onira-offwhite/70 px-3.5 py-2.5 text-sm text-onira-night focus:border-onira-purple focus:bg-white focus:outline-none"
                 />
               </div>
 
@@ -950,8 +950,8 @@ export const AdminDashboardPage: React.FC = () => {
                     required
                     value={formState.light_color}
                     onChange={(e) => handleLightColorTextChange(e.target.value)}
-                    placeholder="Ex.: azul claro, lilás, dourado suave"
-                    className="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 focus:border-violet-500 focus:bg-white focus:outline-none"
+                    placeholder="Ex.: lavanda, roxo tecnológico, azul claro"
+                    className="flex-1 rounded-xl border border-onira-lavender/25 bg-onira-offwhite/70 px-3.5 py-2.5 text-sm text-onira-night focus:border-onira-purple focus:bg-white focus:outline-none"
                   />
                   <label
                     className="relative flex h-10 w-12 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-slate-200"
@@ -984,7 +984,7 @@ export const AdminDashboardPage: React.FC = () => {
                           light_hex: preset.hex,
                         }));
                       }}
-                      className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-medium text-slate-700 transition-colors hover:border-violet-300 hover:bg-violet-50"
+                      className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-onira-lavender/25 bg-onira-offwhite/80 px-2.5 py-1 text-[11px] font-medium text-onira-night transition-colors hover:border-onira-purple hover:bg-onira-offwhite"
                     >
                       <span className="h-2 w-2 rounded-full" style={{ backgroundColor: preset.hex }} />
                       {preset.label}
@@ -997,14 +997,14 @@ export const AdminDashboardPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="cursor-pointer rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                  className="cursor-pointer rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-onira-offwhite"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
                   disabled={savingTheme}
-                  className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-violet-700 disabled:opacity-60"
+                  className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-onira-purple px-5 py-2.5 text-sm font-semibold text-onira-offwhite shadow-sm hover:bg-onira-purple-hover disabled:opacity-60"
                 >
                   {savingTheme ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
                   Salvar tema
@@ -1018,12 +1018,12 @@ export const AdminDashboardPage: React.FC = () => {
       {/* MODAL: Confirmar Exclusão de Tema (CT-04 passo 5) */}
       {deletingTheme && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 p-4 backdrop-blur-xs"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-onira-night/65 p-4 backdrop-blur-xs"
           role="dialog"
           aria-modal="true"
         >
-          <div className="animate-modal-pop w-full max-w-md rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl">
-            <h2 className="text-lg font-bold text-slate-900">Excluir tema de sonho?</h2>
+          <div className="animate-modal-pop w-full max-w-md rounded-3xl border border-onira-lavender/25 bg-white p-6 shadow-2xl">
+            <h2 className="text-lg font-bold text-onira-night">Excluir tema de sonho?</h2>
             <p className="mt-2 text-sm leading-relaxed text-slate-600">
               Tem certeza que deseja excluir o tema{' '}
               <strong className="text-slate-900">{deletingTheme.name}</strong>? Ele será removido do painel

@@ -18,9 +18,9 @@ export const OniraLogo: React.FC<OniraLogoProps> = ({
   showTagline = false,
   className = '',
 }) => {
-  const textFill = theme === 'dark' ? '#FFFFFF' : '#1E1B4B';
-  const taglineFill = theme === 'dark' ? '#A5B4FC' : '#6D28D9';
-  const moonFill = theme === 'dark' ? '#F8FAFC' : '#312E81';
+  const textFill = theme === 'dark' ? '#F5F3FA' : '#10152F';
+  const taglineFill = theme === 'dark' ? '#A78BFA' : '#7665E8';
+  const moonFill = theme === 'dark' ? '#F5F3FA' : '#10152F';
   const uid = React.useId().replace(/:/g, '');
 
   const emblem = (
@@ -32,9 +32,9 @@ export const OniraLogo: React.FC<OniraLogoProps> = ({
     >
       <defs>
         <linearGradient id={`onira-ring-${uid}`} x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#C084FC" />
-          <stop offset="55%" stopColor="#8B5CF6" />
-          <stop offset="100%" stopColor="#38BDF8" />
+          <stop offset="0%" stopColor="#A78BFA" />
+          <stop offset="55%" stopColor="#7665E8" />
+          <stop offset="100%" stopColor={theme === 'dark' ? '#F5F3FA' : '#A78BFA'} />
         </linearGradient>
       </defs>
       <circle
@@ -46,14 +46,14 @@ export const OniraLogo: React.FC<OniraLogoProps> = ({
         strokeLinecap="round"
         strokeDasharray="118 36"
       />
-      <circle cx="49" cy="14" r="3" fill="#7DD3FC" />
+      <circle cx="49" cy="14" r="3" fill="#A78BFA" />
       <path
         d="M35.2 19.5C29.1 20.5 24.8 25.9 25.2 32.1C25.6 38.9 31.3 44.1 38.1 43.7C41.4 43.5 44.4 41.9 46.3 39.5C44.6 40 42.8 40.2 40.9 39.9C34.8 39 30.6 33.4 31.5 27.3C32 24.2 33.4 21.5 35.2 19.5Z"
         fill={moonFill}
       />
       <path
         d="M42.2 19.5L43.4 22.8L46.7 24L43.4 25.2L42.2 28.5L41 25.2L37.7 24L41 22.8L42.2 19.5Z"
-        fill="#C084FC"
+        fill="#A78BFA"
       />
     </svg>
   );

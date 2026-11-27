@@ -46,7 +46,7 @@ export const LoginPage: React.FC = () => {
       footer={
         <>
           Ainda não tem uma conta?{' '}
-          <Link to="/cadastro" className="font-semibold text-violet-400 transition-colors hover:text-violet-300">
+          <Link to="/cadastro" className="font-semibold text-onira-lavender transition-colors hover:text-onira-offwhite">
             Cadastrar
           </Link>
         </>
@@ -115,14 +115,14 @@ export const LoginPage: React.FC = () => {
               type="checkbox"
               checked={rememberMe}
               onChange={(e) => setRememberMe(e.target.checked)}
-              className="h-4 w-4 rounded border-slate-600 bg-slate-900 accent-violet-500"
+              className="h-4 w-4 rounded border-slate-600 bg-onira-night accent-onira-purple"
             />
             Lembrar de mim
           </label>
 
           <Link
             to="/redefinir-senha"
-            className="font-medium text-violet-400 transition-colors hover:text-violet-300"
+            className="font-medium text-onira-lavender transition-colors hover:text-onira-offwhite"
           >
             Esqueci minha senha
           </Link>

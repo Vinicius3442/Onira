@@ -33,7 +33,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
       <img
         src={src}
         alt={name ? `Foto de perfil de ${name}` : 'Foto de perfil'}
-        className={`${sizeClass} aspect-square shrink-0 rounded-full object-cover ring-2 ring-violet-400/45 shadow-md shadow-violet-950/50 ${className}`}
+        className={`${sizeClass} aspect-square shrink-0 rounded-full object-cover ring-2 ring-onira-lavender/45 shadow-md shadow-onira-night/60 ${className}`}
       />
     );
   }
@@ -42,7 +42,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
 
   return (
     <div
-      className={`${sizeClass} flex aspect-square shrink-0 items-center justify-center rounded-full border border-violet-400/40 bg-gradient-to-br from-violet-600/90 via-purple-600/90 to-indigo-700 font-bold text-white shadow-md shadow-violet-950/50 ${className}`}
+      className={`${sizeClass} flex aspect-square shrink-0 items-center justify-center rounded-full border border-onira-lavender/40 bg-gradient-to-br from-onira-purple via-onira-purple-hover to-onira-night font-bold text-onira-offwhite shadow-md shadow-onira-night/60 ${className}`}
       aria-label={name || 'Avatar'}
     >
       {name ? initials : <User className="h-4 w-4" />}
@@ -59,10 +59,10 @@ interface AdminTagProps {
  */
 export const AdminTag: React.FC<AdminTagProps> = ({ compact = false }) => (
   <span
-    className="inline-flex shrink-0 items-center gap-1 rounded-md border border-violet-400/40 bg-violet-500/20 px-1.5 py-0.5 text-[10px] leading-none font-bold tracking-wide text-violet-200 uppercase"
+    className="inline-flex shrink-0 items-center gap-1 rounded-md border border-onira-lavender/40 bg-onira-purple/25 px-1.5 py-0.5 text-[10px] leading-none font-bold tracking-wide text-onira-offwhite uppercase"
     title="Conta Administrador"
   >
-    <Wrench className="h-2.5 w-2.5 shrink-0 text-sky-300" />
+    <Wrench className="h-2.5 w-2.5 shrink-0 text-onira-lavender" />
     {!compact && <span>Admin</span>}
   </span>
 );

@@ -50,7 +50,7 @@ export const UpdatePasswordPage: React.FC = () => {
       titleHighlight="nova senha."
       subtitle="Escolha uma senha forte para proteger sua conta ONIRA."
       footer={
-        <Link to="/login" className="font-semibold text-violet-400 transition-colors hover:text-violet-300">
+        <Link to="/login" className="font-semibold text-onira-lavender transition-colors hover:text-onira-offwhite">
           Voltar para o login
         </Link>
       }

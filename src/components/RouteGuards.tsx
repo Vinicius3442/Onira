@@ -6,11 +6,11 @@ import { OniraLogo } from './OniraLogo';
 import { WaveBackdrop } from './WaveBackdrop';
 
 const FullScreenLoader: React.FC = () => (
-  <div className="flex min-h-screen flex-col items-center justify-center bg-[#080715] px-4 text-slate-200">
+  <div className="flex min-h-screen flex-col items-center justify-center bg-onira-night px-4 text-onira-offwhite">
     <WaveBackdrop />
     <OniraLogo variant="compact" className="mb-6" />
     <div className="flex items-center gap-2.5 text-sm text-slate-400">
-      <Loader2 className="h-4 w-4 animate-spin text-violet-400" />
+      <Loader2 className="h-4 w-4 animate-spin text-onira-lavender" />
       Carregando sua experiência ONIRA...
     </div>
   </div>

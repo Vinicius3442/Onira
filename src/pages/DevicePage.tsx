@@ -127,10 +127,10 @@ export const DevicePage: React.FC = () => {
         <form onSubmit={handleSave} className="onira-card space-y-6 rounded-3xl p-6 sm:p-7 lg:col-span-7">
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
             <div>
-              <p className="text-[11px] font-bold tracking-[0.2em] text-violet-400 uppercase">
+              <p className="text-[11px] font-bold tracking-[0.2em] text-onira-lavender uppercase">
                 Parâmetros do Dispositivo
               </p>
-              <h2 className="mt-1 text-lg font-bold text-white">Vínculo e Calibração</h2>
+              <h2 className="mt-1 text-lg font-bold text-onira-offwhite">Vínculo e Calibração</h2>
             </div>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-300">
               <Wifi className="h-3.5 w-3.5" />
@@ -158,7 +158,7 @@ export const DevicePage: React.FC = () => {
 
           {loading ? (
             <div className="flex items-center gap-2 py-8 text-sm text-slate-400">
-              <Loader2 className="h-4 w-4 animate-spin text-violet-400" />
+              <Loader2 className="h-4 w-4 animate-spin text-onira-lavender" />
               Carregando configurações salvas...
             </div>
           ) : (
@@ -195,11 +195,11 @@ export const DevicePage: React.FC = () => {
               {/* Intensidade NeoPixel */}
               <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="inline-flex items-center gap-2 font-semibold text-white">
-                    <Sparkles className="h-4 w-4 text-violet-400" />
+                  <span className="inline-flex items-center gap-2 font-semibold text-onira-offwhite">
+                    <Sparkles className="h-4 w-4 text-onira-lavender" />
                     Intensidade do Anel NeoPixel
                   </span>
-                  <span className="font-bold text-violet-300">{neopixelBrightness}%</span>
+                  <span className="font-bold text-onira-lavender">{neopixelBrightness}%</span>
                 </div>
                 <input
                   type="range"
@@ -208,18 +208,18 @@ export const DevicePage: React.FC = () => {
                   step={5}
                   value={neopixelBrightness}
                   onChange={(e) => setNeopixelBrightness(Number(e.target.value))}
-                  className="mt-3 w-full accent-violet-500"
+                  className="mt-3 w-full accent-onira-purple"
                 />
               </div>
 
               {/* Volume Buzzer */}
               <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="inline-flex items-center gap-2 font-semibold text-white">
-                    <Volume2 className="h-4 w-4 text-sky-400" />
+                  <span className="inline-flex items-center gap-2 font-semibold text-onira-offwhite">
+                    <Volume2 className="h-4 w-4 text-onira-purple" />
                     Volume do Despertar Suave (Buzzer)
                   </span>
-                  <span className="font-bold text-sky-300">{buzzerVolume}%</span>
+                  <span className="font-bold text-onira-lavender">{buzzerVolume}%</span>
                 </div>
                 <input
                   type="range"
@@ -228,14 +228,14 @@ export const DevicePage: React.FC = () => {
                   step={5}
                   value={buzzerVolume}
                   onChange={(e) => setBuzzerVolume(Number(e.target.value))}
-                  className="mt-3 w-full accent-sky-400"
+                  className="mt-3 w-full accent-onira-lavender"
                 />
               </div>
 
               {/* Temperatura NTC & Ventilação */}
               <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 space-y-3">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="inline-flex items-center gap-2 font-semibold text-white">
+                  <span className="inline-flex items-center gap-2 font-semibold text-onira-offwhite">
                     <Thermometer className="h-4 w-4 text-rose-400" />
                     Limite de aquecimento NTC (ativa ventilação)
                   </span>
@@ -259,14 +259,14 @@ export const DevicePage: React.FC = () => {
                     type="checkbox"
                     checked={autoVentilation}
                     onChange={(e) => setAutoVentilation(e.target.checked)}
-                    className="h-4 w-4 accent-violet-500"
+                    className="h-4 w-4 accent-onira-purple"
                   />
                 </label>
               </div>
 
               {/* Sensibilidade LDR */}
               <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4">
-                <p className="mb-2.5 flex items-center gap-2 text-xs font-semibold text-white">
+                <p className="mb-2.5 flex items-center gap-2 text-xs font-semibold text-onira-offwhite">
                   <SunMedium className="h-4 w-4 text-amber-400" />
                   Sensibilidade do Fotorresistor (LDR — luz do quarto)
                 </p>
@@ -278,7 +278,7 @@ export const DevicePage: React.FC = () => {
                       onClick={() => setLdrSensitivity(level)}
                       className={`cursor-pointer rounded-xl border py-2 text-xs font-semibold transition-colors ${
                         ldrSensitivity === level
-                          ? 'border-violet-400 bg-violet-500/20 text-white'
+                          ? 'border-onira-lavender bg-onira-purple/25 text-onira-offwhite'
                           : 'border-white/10 bg-white/5 text-slate-400 hover:text-white'
                       }`}
                     >
@@ -310,8 +310,8 @@ export const DevicePage: React.FC = () => {
             />
             <div className="mt-5 flex items-center justify-between gap-4">
               <div>
-                <p className="text-xs font-semibold text-violet-300">{deviceCode}</p>
-                <h3 className="text-base font-bold text-white">{deviceName}</h3>
+                <p className="text-xs font-semibold text-onira-lavender">{deviceCode}</p>
+                <h3 className="text-base font-bold text-onira-offwhite">{deviceName}</h3>
                 <p className="mt-1 text-xs text-slate-400">
                   {lastSyncedAt
                     ? `Última gravação: ${new Date(lastSyncedAt).toLocaleString('pt-BR')}`
@@ -319,15 +319,15 @@ export const DevicePage: React.FC = () => {
                 </p>
               </div>
               <div style={{ opacity: Math.max(0.25, neopixelBrightness / 100) }}>
-                <NeoPixelRing colorHex="#8B5CF6" colorLabel={`${neopixelBrightness}%`} size="sm" />
+                <NeoPixelRing colorHex="#7665E8" colorLabel={`${neopixelBrightness}%`} size="sm" />
               </div>
             </div>
           </div>
 
           <div className="onira-card rounded-3xl p-5">
             <div className="flex items-center gap-2">
-              <Cpu className="h-4 w-4 text-sky-400" />
-              <h3 className="text-sm font-bold text-white">Arquitetura de Hardware (ESP32 / Wokwi)</h3>
+              <Cpu className="h-4 w-4 text-onira-lavender" />
+              <h3 className="text-sm font-bold text-onira-offwhite">Arquitetura de Hardware (ESP32 / Wokwi)</h3>
             </div>
             <p className="mt-1.5 text-xs leading-relaxed text-slate-400">
               Conforme o escopo do projeto, esta versão web gerencia suas preferências reais no Supabase sem simular
@@ -335,7 +335,7 @@ export const DevicePage: React.FC = () => {
             </p>
             <ul className="mt-4 space-y-2.5 text-xs text-slate-300">
               <li className="flex items-center gap-2.5">
-                <Moon className="h-4 w-4 shrink-0 text-violet-400" />
+                <Moon className="h-4 w-4 shrink-0 text-onira-lavender" />
                 <span><strong>Potenciômetro:</strong> fase do sono (0 acordado a 100 sono profundo)</span>
               </li>
               <li className="flex items-center gap-2.5">
@@ -347,7 +347,7 @@ export const DevicePage: React.FC = () => {
                 <span><strong>Fotorresistor LDR:</strong> luminosidade do quarto (0 a 100%)</span>
               </li>
               <li className="flex items-center gap-2.5">
-                <Sparkles className="h-4 w-4 shrink-0 text-sky-400" />
+                <Sparkles className="h-4 w-4 shrink-0 text-onira-purple" />
                 <span><strong>Anel NeoPixel:</strong> luz de indução na cor do tema escolhido</span>
               </li>
               <li className="flex items-center gap-2.5">

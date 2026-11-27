@@ -1,14 +1,26 @@
 @import "tailwindcss";
 
+@theme {
+  --color-onira-night: #10152F;
+  --color-onira-night-deep: #0B0F24;
+  --color-onira-surface: #171D3D;
+  --color-onira-surface-elevated: #1F264E;
+  --color-onira-lavender: #A78BFA;
+  --color-onira-offwhite: #F5F3FA;
+  --color-onira-purple: #7665E8;
+  --color-onira-purple-hover: #6452DC;
+}
+
 @layer base {
   :root {
-    --onira-bg: #080715;
-    --onira-surface: #121027;
-    --onira-surface-elevated: #191636;
-    --onira-primary: #8B5CF6;
-    --onira-primary-light: #A855F7;
-    --onira-sky: #7DD3FC;
-    --onira-border: rgba(139, 92, 246, 0.22);
+    --onira-bg: #10152F;
+    --onira-bg-deep: #0B0F24;
+    --onira-surface: #171D3D;
+    --onira-surface-elevated: #1F264E;
+    --onira-primary: #7665E8;
+    --onira-secondary: #A78BFA;
+    --onira-offwhite: #F5F3FA;
+    --onira-border: rgba(167, 139, 250, 0.22);
   }
 
   html {
@@ -29,8 +41,8 @@
 .onira-gradient-btn {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #7C3AED 0%, #9333EA 52%, #A855F7 100%);
-  box-shadow: 0 10px 30px -8px rgba(139, 92, 246, 0.55);
+  background: linear-gradient(135deg, #7665E8 0%, #8E7BF2 54%, #A78BFA 100%);
+  box-shadow: 0 10px 30px -8px rgba(118, 101, 232, 0.58);
   transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, filter 0.22s ease;
 }
 
@@ -38,7 +50,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, 0.22) 50%, transparent 75%);
+  background: linear-gradient(110deg, transparent 25%, rgba(245, 243, 250, 0.24) 50%, transparent 75%);
   transform: translateX(-120%);
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
@@ -49,8 +61,8 @@
 }
 
 .onira-gradient-btn:hover:not(:disabled) {
-  filter: brightness(1.08);
-  box-shadow: 0 16px 36px -6px rgba(168, 85, 247, 0.7);
+  filter: brightness(1.07);
+  box-shadow: 0 16px 36px -6px rgba(167, 139, 250, 0.65);
   transform: translateY(-2px);
 }
 
@@ -59,9 +71,9 @@
 }
 
 .onira-card {
-  background: linear-gradient(180deg, rgba(22, 19, 46, 0.92) 0%, rgba(15, 13, 33, 0.96) 100%);
-  border: 1px solid rgba(139, 92, 246, 0.18);
-  box-shadow: 0 20px 50px -24px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(23, 29, 61, 0.92) 0%, rgba(16, 21, 47, 0.96) 100%);
+  border: 1px solid rgba(167, 139, 250, 0.18);
+  box-shadow: 0 20px 50px -24px rgba(5, 8, 22, 0.85), inset 0 1px 0 rgba(245, 243, 250, 0.06);
   transition:
     transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.28s ease,
@@ -69,11 +81,11 @@
 }
 
 .onira-card:hover {
-  border-color: rgba(167, 139, 250, 0.34);
+  border-color: rgba(167, 139, 250, 0.38);
   box-shadow:
-    0 24px 54px -22px rgba(0, 0, 0, 0.9),
-    0 0 28px -10px rgba(139, 92, 246, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 24px 54px -22px rgba(5, 8, 22, 0.9),
+    0 0 28px -10px rgba(118, 101, 232, 0.34),
+    inset 0 1px 0 rgba(245, 243, 250, 0.09);
 }
 
 .onira-card-lift:hover {
@@ -89,21 +101,21 @@
 
 .admin-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(139, 92, 246, 0.35);
-  box-shadow: 0 16px 34px -18px rgba(109, 40, 217, 0.28);
+  border-color: rgba(118, 101, 232, 0.38);
+  box-shadow: 0 16px 34px -18px rgba(118, 101, 232, 0.28);
 }
 
 .onira-input {
-  background: rgba(14, 12, 31, 0.85);
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(16, 21, 47, 0.86);
+  border: 1px solid rgba(167, 139, 250, 0.2);
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
 }
 
 .onira-input:focus {
   outline: none;
-  border-color: #8B5CF6;
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.24);
-  background: rgba(19, 16, 42, 0.96);
+  border-color: #7665E8;
+  box-shadow: 0 0 0 3px rgba(118, 101, 232, 0.28);
+  background: rgba(23, 29, 61, 0.96);
 }
 
 /* Keyframes de animações suaves */

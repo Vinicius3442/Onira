@@ -108,7 +108,7 @@ export const RegisterPage: React.FC = () => {
       footer={
         <>
           Já possui uma conta?{' '}
-          <Link to="/login" className="font-semibold text-violet-400 transition-colors hover:text-violet-300">
+          <Link to="/login" className="font-semibold text-onira-lavender transition-colors hover:text-onira-offwhite">
             Entrar
           </Link>
         </>
