@@ -294,7 +294,7 @@ export const DreamScriptPage: React.FC = () => {
         </div>
 
         {/* Grid principal: Formulário + Visualizador NeoPixel */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12">
           <form
             onSubmit={handleScheduleNight}
             className="onira-card rounded-3xl p-5 sm:p-7 lg:col-span-8"
@@ -487,9 +487,9 @@ export const DreamScriptPage: React.FC = () => {
             </button>
           </form>
 
-          {/* Painel Lateral NeoPixel */}
-          <div className="flex flex-col gap-6 lg:col-span-4">
-            <div className="onira-card flex flex-1 flex-col items-center justify-between rounded-3xl p-6 text-center">
+          {/* Painel Lateral NeoPixel (altura compacta + sticky no desktop) */}
+          <div className="flex flex-col gap-6 lg:sticky lg:top-24 lg:col-span-4">
+            <div className="onira-card flex flex-col items-center gap-5 rounded-3xl p-6 text-center">
               <div className="w-full">
                 <p className="text-[11px] font-bold tracking-[0.2em] text-onira-lavender uppercase">
                   Indução Luminosa ONIRA
@@ -497,7 +497,7 @@ export const DreamScriptPage: React.FC = () => {
                 <h3 className="mt-1 text-base font-bold text-onira-offwhite">Anel LED NeoPixel</h3>
               </div>
 
-              <div className="my-6">
+              <div className="py-1">
                 <NeoPixelRing
                   colorHex={activeHex}
                   colorLabel={selectedTheme?.light_color || 'roxo tecnológico'}
@@ -527,7 +527,7 @@ export const DreamScriptPage: React.FC = () => {
 
               <Link
                 to="/dispositivo"
-                className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-onira-lavender hover:text-onira-offwhite"
+                className="inline-flex items-center gap-1.5 text-xs font-medium text-onira-lavender hover:text-onira-offwhite"
               >
                 Ajustar brilho e despertar do travesseiro →
               </Link>

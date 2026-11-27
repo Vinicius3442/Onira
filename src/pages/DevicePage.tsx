@@ -18,6 +18,7 @@ import { NeoPixelRing } from '../components/NeoPixelRing';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import type { LdrSensitivity } from '../types/database';
+import oniraPillowImg from '../assets/onira-pillow.png';
 
 export const DevicePage: React.FC = () => {
   const { user } = useAuth();
@@ -304,7 +305,7 @@ export const DevicePage: React.FC = () => {
         <div className="flex flex-col gap-6 lg:col-span-5">
           <div className="onira-card overflow-hidden rounded-3xl p-5">
             <img
-              src="/images/onira-pillow.png"
+              src={oniraPillowImg}
               alt="Travesseiro inteligente ONIRA"
               className="h-48 w-full rounded-2xl object-cover"
             />
@@ -336,23 +337,23 @@ export const DevicePage: React.FC = () => {
             <ul className="mt-4 space-y-2.5 text-xs text-slate-300">
               <li className="flex items-center gap-2.5">
                 <Moon className="h-4 w-4 shrink-0 text-onira-lavender" />
-                <span><strong>Potenciômetro:</strong> fase do sono (0 acordado a 100 sono profundo)</span>
+                <span><strong>Potenciômetro (GPIO 34):</strong> simula a fase do sono (0 acordado a 100 sono profundo)</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Thermometer className="h-4 w-4 shrink-0 text-rose-400" />
-                <span><strong>Sensor NTC:</strong> temperatura do travesseiro em °C</span>
+                <span><strong>Sensor NTC (GPIO 35):</strong> mede a temperatura do travesseiro em °C e dispara alerta térmico</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <SunMedium className="h-4 w-4 shrink-0 text-amber-400" />
-                <span><strong>Fotorresistor LDR:</strong> luminosidade do quarto (0 a 100%)</span>
+                <span><strong>Fotorresistor LDR (GPIO 32):</strong> mede a luminosidade do quarto (0 a 100%) para regular o brilho</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Sparkles className="h-4 w-4 shrink-0 text-onira-purple" />
-                <span><strong>Anel NeoPixel:</strong> luz de indução na cor do tema escolhido</span>
+                <span><strong>Anel NeoPixel 12 LEDs (GPIO 13):</strong> projeta a luz suave na cor do tema escolhido</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Volume2 className="h-4 w-4 shrink-0 text-emerald-400" />
-                <span><strong>Buzzer:</strong> despertar suave progressivo</span>
+                <span><strong>Buzzer (GPIO 14) + Ventilação (GPIO 27):</strong> despertar suave progressivo e resfriamento automático</span>
               </li>
             </ul>
           </div>

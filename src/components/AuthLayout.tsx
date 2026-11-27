@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Sparkles, ShieldCheck } from 'lucide-react';
 import { OniraLogo } from './OniraLogo';
 import { WaveBackdrop } from './WaveBackdrop';
+import oniraPillowImg from '../assets/onira-pillow.png';
 
 interface AuthLayoutProps {
   eyebrow: string;
@@ -25,6 +26,8 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
   children,
   footer,
 }) => {
+  const pillowImageSrc = oniraPillowImg;
+
   return (
     <div className="relative flex min-h-screen w-full items-center justify-center px-4 py-8 sm:px-6 lg:px-10">
       <WaveBackdrop />
@@ -47,7 +50,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
 
           <div className="group relative z-10 my-6 overflow-hidden rounded-2xl border border-onira-lavender/15 bg-onira-night-deep shadow-xl">
             <img
-              src="/images/onira-pillow.png"
+              src={pillowImageSrc}
               alt="Travesseiro inteligente ONIRA em quarto aconchegante"
               className="h-60 w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
             />
@@ -81,8 +84,23 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
               </Link>
             </div>
 
+            {/* Banner compacto do produto em telas menores que 1024px (mobile / janela dividida) */}
+            <div className="relative mt-5 overflow-hidden rounded-2xl border border-onira-lavender/15 bg-onira-night-deep shadow-lg lg:hidden">
+              <img
+                src={pillowImageSrc}
+                alt="Travesseiro inteligente ONIRA em quarto aconchegante"
+                className="h-36 w-full object-cover object-center"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-onira-night via-onira-night/70 to-transparent px-3.5 py-2.5">
+                <div className="flex items-center gap-1.5 text-[11px] font-medium text-onira-offwhite">
+                  <Sparkles className="h-3 w-3 shrink-0 text-onira-lavender" />
+                  Travesseiro Inteligente ONIRA
+                </div>
+              </div>
+            </div>
+
             {/* Eyebrow & Título */}
-            <div className="mt-8">
+            <div className="mt-6 lg:mt-8">
               <p className="text-[11px] font-bold tracking-[0.2em] text-onira-lavender uppercase">{eyebrow}</p>
               <h1 className="mt-2 text-3xl leading-tight font-bold tracking-tight text-onira-offwhite sm:text-[32px]">
                 {titlePrimary}
